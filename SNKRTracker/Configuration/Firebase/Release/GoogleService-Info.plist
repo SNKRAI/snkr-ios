@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1075573574904-86ur68ljhf9rrf3mvjc8hbchrvobe1ji.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1075573574904-86ur68ljhf9rrf3mvjc8hbchrvobe1ji</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDuDWg_PA6dyAySqVgKzZLeKQRciuRT41g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1075573574904</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.snkrtracker.com.SNKRTracker.dev</string>
+	<key>PROJECT_ID</key>
+	<string>snkrtrackerdev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>snkrtrackerdev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1075573574904:ios:60087d45935dab06db3f0d</string>
+	<key>DATABASE_URL</key>
+	<string>https://snkrtrackerdev.firebaseio.com</string>
+</dict>
+</plist>
