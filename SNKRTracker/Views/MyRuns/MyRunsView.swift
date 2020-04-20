@@ -2,28 +2,33 @@ import SwiftUI
 import HealthKit
 
 struct MyRunsView: View {
-    @EnvironmentObject var firebaseLoader: FirebaseLoader
+    @EnvironmentObject var viewModel: MyRunsViewModel
 
     private let userService: FirebaseUserServiceProtocol = FirebaseUserService()
+    
+    @State var shouldModal = false
 
     var body: some View {
         NavigationView {
             VStack {
                 stateView
                 .navigationBarTitle("My runs")
-                .navigationBarItems(trailing:
+                .navigationBarItems(leading:
+                    Button("My Sneakers") {
+                        self.shouldModal = true
+                    }, trailing:
                     Button("Logout") {
                         self.userService.logout()
                     }
                 )
             }
-        }.onAppear {
-            self.firebaseLoader.fetch()
+        }.sheet(isPresented: $shouldModal) {
+            MySneakersView().environmentObject(MySneakersViewModel())
         }
     }
 
-    var stateView: AnyView {
-        switch firebaseLoader.state {
+    private var stateView: AnyView {
+        switch viewModel.state {
         case .loading:
             return AnyView(Text("Loading"))
         case .empty:

@@ -49,7 +49,6 @@ final class HealthKitManager {
             }
 
             guard let workouts = samples as? [HKWorkout], !workouts.isEmpty else {
-                print("@@@NO NEW WORKOUTS")
                 completion(.success(.noNewWorkouts))
                 return
             }
@@ -59,7 +58,8 @@ final class HealthKitManager {
                     switch result {
                     case .success:
                         completion(.success(.saved))
-                    case .failure(let error):
+                    case .failure(
+                        let error):
                         completion(.failure(error))
                     }
                 }

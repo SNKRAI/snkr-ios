@@ -28,7 +28,7 @@ extension FirebaseManager: FirebaseSaverProtocol {
             do {
                 for run in runs {
                     guard let encoded = try FirebaseEncoder().encode(run) as? [String: Any] else { continue }
-                    database.collection(userId).document(Constants.workouts).setData([run.id.uuidString: encoded], merge: true) { err in
+                    database.collection(userId).document(Constants.workouts.rawValue).setData([run.id.uuidString: encoded], merge: true) { err in
                         if let err = err {
                             completion(.failure(.generic(err.localizedDescription)))
                         } else {
