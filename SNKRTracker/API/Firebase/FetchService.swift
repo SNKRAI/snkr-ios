@@ -38,14 +38,18 @@ class FetchService {
         }
     }
     
-    func delete(sneaker: Container<Sneaker>, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
+    func delete(containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
         
         ref.updateData([
-            sneaker.id: FieldValue.delete()
+            containerId: FieldValue.delete()
         ]) { error in
-            print("error")
+            guard error == nil else {
+                completion(.failure(.reason("could not delete \(containerId)")))
+                return
+            }
+            completion(.success(()))
         }
     }
 }

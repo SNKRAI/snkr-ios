@@ -36,13 +36,11 @@ struct MySneakersView: View {
                     ForEach(container, id: \.self) { sneaker in
                         Text(sneaker.data.model)
                     }.onDelete { indexSet in
-                        guard let index = Array(indexSet).first else { return }
-                        self.viewModel.delete(sneaker: container[index])
+                        self.viewModel.delete(at: indexSet, in: container)
                     }
                 }
             )
             
-
         case .error(let reason):
             return AnyView(Text("Error \(reason.localizedDescription)"))
         }
