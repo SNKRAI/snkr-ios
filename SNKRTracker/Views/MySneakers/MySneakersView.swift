@@ -2,10 +2,20 @@ import SwiftUI
 
 struct MySneakersView: View {
     @EnvironmentObject var viewModel: MySneakersViewModel
-    
+
     var body: some View {
         NavigationView {
-            VStack { stateView }
+            VStack {
+                stateView
+                .navigationBarItems(trailing:
+                    NavigationLink(destination:                 SneakerSearchView().environmentObject(SneakerSearchViewModel())
+                    ) {
+                        Text("Add more")
+                    }
+                )
+            }.onAppear {
+                self.viewModel.fetchMySneakers()
+            }
         }
     }
 
@@ -22,10 +32,17 @@ struct MySneakersView: View {
             )
         case .fetched(let sneakers):
             return AnyView(
-                List(sneakers) { sneaker in
-                    Text(sneaker.model)
+                List {
+                    ForEach(sneakers, id: \.self) { sneaker in
+                        Text(sneaker.model)
+                    }.onDelete { indexSet in
+                        guard let index = Array(indexSet).first else { return }
+                        self.viewModel.delete(sneaker: sneakers[index])
+                    }
                 }
             )
+            
+
         case .error(let reason):
             return AnyView(Text("Error \(reason.localizedDescription)"))
         }

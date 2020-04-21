@@ -6,8 +6,15 @@ final class HealthKitManager {
     private let healthStore = HKHealthStore()
     private var locations = [CLLocation]()
     private var savedAnchor: HKQueryAnchor?
-    private let firebaseManager: FirebaseSaverProtocol = FirebaseManager()
+    private let firebaseManager: FirebaseManager
     private let notificationCenter: NotificationManagerProtocol = NotificationManager()
+    
+    init(firebaseManager: FirebaseManager = FirebaseManager(
+        keys: Keys(collection: .userId,
+                   document: .workouts))
+    ) {
+        self.firebaseManager = firebaseManager
+    }
 
     func getRunningWorkouts(completion: @escaping (Result<[Run], AppError>) -> Void) {
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .running)
@@ -58,9 +65,8 @@ final class HealthKitManager {
                     switch result {
                     case .success:
                         completion(.success(.saved))
-                    case .failure(
-                        let error):
-                        completion(.failure(error))
+                    case .failure(let error):
+                        completion(.failure(.generic(error.localizedDescription)))
                     }
                 }
             } else {

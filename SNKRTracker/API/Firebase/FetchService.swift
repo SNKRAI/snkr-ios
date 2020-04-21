@@ -2,18 +2,18 @@ import FirebaseAuth
 import FirebaseFirestore
 import CodableFirebase
 
-class FetchService<T: Codable> {
-    private let key: Key
+class FetchService {
+    private let keys: Keys
     private let firestore: Firestore
     
-    init(key: Key, firestore: Firestore = Firestore.firestore()) {
-        self.key = key
+    init(keys: Keys, firestore: Firestore = Firestore.firestore()) {
+        self.keys = keys
         self.firestore = firestore
     }
     
-    func fetch(completion: @escaping (LoadableState<[T]>) -> Void) {
-        let collectionId = path(for: key.collection)
-        let ref = firestore.collection(collectionId).document(key.document.rawValue)
+    func fetch<T: Decodable>(completion: @escaping (LoadableState<[T]>) -> Void) {
+        let collectionId = Helper.path(for: keys.collection)
+        let ref = firestore.collection(collectionId).document(keys.document.rawValue)
 
         ref.getDocument { document, error in
             guard error == nil else {
@@ -38,12 +38,14 @@ class FetchService<T: Codable> {
         }
     }
     
-    private func path(for collection: Collection) -> String {
-        switch collection {
-        case .userId:
-            return Auth.auth().currentUser?.uid ?? ""
-        default:
-            return collection.rawValue
+    func delete(sneaker: Sneaker, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
+        let collectionId = Helper.path(for: keys.collection)
+        let ref = firestore.collection(collectionId).document(keys.document.rawValue)
+        
+        ref.updateData([
+            "2DFFF410-3A23-4B0A-B684-FB872C39AC6E": FieldValue.delete()
+        ]) { error in
+            print("error")
         }
     }
 }
