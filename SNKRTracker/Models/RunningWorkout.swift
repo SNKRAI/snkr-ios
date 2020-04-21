@@ -6,7 +6,7 @@ struct Run: Identifiable {
     let workout: HKWorkout
 }
 
-struct RunningWorkout: Identifiable, Codable {
+struct RunningWorkout: Identifiable, Codable, Hashable {
     var id = UUID()
     let start: Date
     let end: Date

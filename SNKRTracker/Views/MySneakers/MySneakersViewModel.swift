@@ -4,7 +4,7 @@ class MySneakersViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<MySneakersViewModel, Never>()
     private let fetchService: FetchService
 
-    @Published var state: LoadableState<[Sneaker]> = .loading {
+    @Published var state: LoadableState<[Container<Sneaker>]> = .loading {
         didSet {
             changeObserver.send(self)
         }
@@ -24,7 +24,7 @@ class MySneakersViewModel: ObservableObject {
         }
     }
     
-    func delete(sneaker: Sneaker) {
+    func delete(sneaker: Container<Sneaker>) {
         fetchService.delete(sneaker: sneaker) { result in
             switch result {
             case .success:

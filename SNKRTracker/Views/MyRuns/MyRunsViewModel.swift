@@ -7,7 +7,7 @@ final class MyRunsViewModel: ObservableObject {
      
     private let fetchService: FetchService
 
-    @Published var state: LoadableState<[RunningWorkout]> = .loading {
+    @Published var state: LoadableState<[Container<RunningWorkout>]> = .loading {
         didSet {
             changeObserver.send(self)
         }

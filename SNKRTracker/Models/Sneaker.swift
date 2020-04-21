@@ -5,3 +5,13 @@ struct Sneaker: Identifiable, Codable, Hashable {
     let company: String
     let model: String
 }
+
+struct Container<T: Decodable
+                  & Encodable
+                  & Hashable>: Decodable,
+                               Encodable,
+                               Identifiable,
+                               Hashable {
+    let id: String
+    let data: T
+}

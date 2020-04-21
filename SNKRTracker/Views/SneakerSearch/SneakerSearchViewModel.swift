@@ -7,7 +7,7 @@ class SneakerSearchViewModel: ObservableObject {
     private let fetchService: FetchService
     private let saverService: FirebaseManager
     
-    @Published var state: LoadableState<[Sneaker]> = .loading {
+    @Published var state: LoadableState<[Container<Sneaker>]> = .loading {
         didSet {
             changeObserver.send(self)
         }

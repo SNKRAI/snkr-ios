@@ -30,14 +30,14 @@ struct MySneakersView: View {
                     destination: SneakerSearchView().environmentObject(SneakerSearchViewModel())
                 )
             )
-        case .fetched(let sneakers):
+        case .fetched(let container):
             return AnyView(
                 List {
-                    ForEach(sneakers, id: \.self) { sneaker in
-                        Text(sneaker.model)
+                    ForEach(container, id: \.self) { sneaker in
+                        Text(sneaker.data.model)
                     }.onDelete { indexSet in
                         guard let index = Array(indexSet).first else { return }
-                        self.viewModel.delete(sneaker: sneakers[index])
+                        self.viewModel.delete(sneaker: container[index])
                     }
                 }
             )

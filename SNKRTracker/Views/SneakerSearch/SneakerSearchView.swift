@@ -24,9 +24,10 @@ struct SneakerSearchView: View {
             case .fetched(let sneakers):
                 var filtered: [Sneaker]
                 if searchText.isEmpty {
-                    filtered = sneakers
+                    filtered = sneakers.compactMap { $0.data }
                 } else {
-                    filtered = sneakers.filter { $0.model.localizedStandardContains(searchText) || $0.company.localizedStandardContains(searchText) }
+                    filtered = sneakers.compactMap { $0.data }.filter { $0.model.localizedStandardContains(searchText) || $0.company.localizedStandardContains(searchText)
+                    }
                 }
                 return AnyView(
                     List {
@@ -45,5 +46,4 @@ struct SneakerSearchView: View {
             return AnyView(Text("Error \(reason.localizedDescription)"))
         }
     }
-
 }

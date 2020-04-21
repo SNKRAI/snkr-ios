@@ -11,7 +11,7 @@ class FetchService {
         self.firestore = firestore
     }
     
-    func fetch<T: Decodable>(completion: @escaping (LoadableState<[T]>) -> Void) {
+    func fetch<T: Decodable>(completion: @escaping (LoadableState<[Container<T>]>) -> Void) {
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
 
@@ -23,7 +23,7 @@ class FetchService {
             
             if let document = document, let data = document.data(), document.exists {
                 do {
-                     let decoded = try FirebaseDecoder().decode([String: T].self, from: data).map { $0.value }
+                    let decoded = try FirebaseDecoder().decode([String: T].self, from: data).map { Container(id: $0.key, data: $0.value) }
                     if decoded.isEmpty {
                         completion(.empty)
                     } else {
@@ -38,12 +38,12 @@ class FetchService {
         }
     }
     
-    func delete(sneaker: Sneaker, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
+    func delete(sneaker: Container<Sneaker>, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
         
         ref.updateData([
-            "2DFFF410-3A23-4B0A-B684-FB872C39AC6E": FieldValue.delete()
+            sneaker.id: FieldValue.delete()
         ]) { error in
             print("error")
         }

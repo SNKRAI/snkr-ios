@@ -36,7 +36,7 @@ struct MyRunsView: View {
         case .fetched(let runs):
             return AnyView(
                 List(runs) { run in
-                    Text("\(run.totalDistance!)")
+                    Text("\(run.data.totalDistance ?? 0.0)")
                 }
             )
         case .error(let reason):
