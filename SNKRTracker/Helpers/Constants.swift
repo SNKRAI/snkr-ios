@@ -1,11 +1,3 @@
-enum Constants: String {
-    case workouts
-    case sneakers
-    case allSneakers
-    case models
-}
-
-
 struct Keys {
     let collection: Collection
     let document: Document
