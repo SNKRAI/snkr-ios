@@ -1,7 +1,12 @@
 import SwiftUI
 
+enum Source {
+    case pendingWorkout(RunningWorkout), runsView
+}
+
 struct MySneakersView: View {
     @EnvironmentObject var viewModel: MySneakersViewModel
+    let source: Source
 
     var body: some View {
         NavigationView {
@@ -26,7 +31,7 @@ struct MySneakersView: View {
             )
         case .fetched(let container):
             return AnyView(
-                SneakerCardView(container: container, viewModel: viewModel)
+                SneakerCardView(container: container, viewModel: viewModel, source: source)
             )
             
         case .error(let reason):

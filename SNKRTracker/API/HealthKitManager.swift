@@ -9,10 +9,7 @@ final class HealthKitManager {
     private let firebaseManager: FirebaseManager
     private let notificationCenter: NotificationManagerProtocol = NotificationManager()
     
-    init(firebaseManager: FirebaseManager = FirebaseManager(
-        keys: Keys(collection: .userId,
-                   document: .workouts))
-    ) {
+    init(firebaseManager: FirebaseManager = FirebaseManager()) {
         self.firebaseManager = firebaseManager
     }
 

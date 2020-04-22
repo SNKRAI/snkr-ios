@@ -6,7 +6,7 @@ class SneakerSearchViewModel: ObservableObject {
     
     private let fetchService: FetchService
     private let saverService: FirebaseManager
-    
+
     @Published var state: SneakerState = .loading {
         didSet {
             changeObserver.send(self)
@@ -18,9 +18,7 @@ class SneakerSearchViewModel: ObservableObject {
         keys: Keys(collection: .allSneakers,
                    document: .models)),
         
-        saverService: FirebaseManager = FirebaseManager(
-        keys: Keys(collection: .userId,
-                   document: .sneakers))
+        saverService: FirebaseManager = FirebaseManager()
     ) {
         self.fetchService = fetchService
         self.saverService = saverService

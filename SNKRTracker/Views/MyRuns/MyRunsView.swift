@@ -26,7 +26,7 @@ struct MyRunsView: View {
                 }
             )
         }.sheet(isPresented: $shouldModal) {
-            MySneakersView().environmentObject(MySneakersViewModel())
+            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
         }
     }
 
@@ -37,10 +37,11 @@ struct MyRunsView: View {
         case .empty:
             return AnyView(Text("EMPTY"))
         case .fetched(let runs):
+            let sorted = viewModel.sort(runs: runs)
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
-                    PendingRunsView(runs: runs)
-                    SneakerWorkoutView(runs: runs)
+                    PendingRunsView(runs: sorted.pending)
+                    SneakerWorkoutView(runs: sorted.past)
                 }
             )
         case .error(let reason):

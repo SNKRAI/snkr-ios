@@ -1,13 +1,24 @@
 import SwiftUI
 
 struct SneakerCardView: View {
-    var container: [SneakerContainer]
-    var viewModel: MySneakersViewModel
+    let container: [SneakerContainer]
+    let viewModel: MySneakersViewModel
+    let source: Source
     
     var body: some View {
         List {
             ForEach(container, id: \.self) { model in
-                SneakerCardRow(sneaker: model.data)
+                Button(action: {
+                    switch self.source {
+                    case .pendingWorkout(var workout):
+                        workout.sneaker = model.data
+                        self.viewModel.rowSelected(with: workout)
+                    case .runsView:
+                        print("open details view may be?")
+                    }
+                }) {
+                    SneakerCardRow(sneaker: model.data)
+                }
             }.onDelete { indexSet in
                 self.viewModel.delete(at: indexSet, in: self.container)
             }

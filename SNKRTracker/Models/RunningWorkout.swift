@@ -13,5 +13,5 @@ struct RunningWorkout: Identifiable, Codable, Hashable {
     let duration: TimeInterval
     let totalEnergyBurned: Double?
     let totalDistance: Double?
-    let sneaker: Sneaker?
+    var sneaker: Sneaker?
 }

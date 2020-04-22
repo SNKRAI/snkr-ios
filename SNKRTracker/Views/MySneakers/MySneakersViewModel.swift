@@ -4,6 +4,7 @@ import SwiftUI
 class MySneakersViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<MySneakersViewModel, Never>()
     private let fetchService: FetchService
+    private let saveService: FirebaseManager
     
     @Published var state: SneakerState = .loading {
         didSet {
@@ -14,15 +15,21 @@ class MySneakersViewModel: ObservableObject {
     init(
         fetchService: FetchService = FetchService(
         keys: Keys(collection: .userId,
-                 document: .sneakers))
+                 document: .sneakers)),
+        saveService: FirebaseManager = FirebaseManager()
     ) {
         self.fetchService = fetchService
+        self.saveService = saveService
     }
     
     func fetchMySneakers() {
         fetchService.fetch { [weak self] state in
             self?.state = state
         }
+    }
+    
+    func rowSelected(with workout: RunningWorkout) {
+        print("SAVE:", workout.sneaker, "FOR:", workout.totalDistance!)
     }
     
     func delete(at indexSet: IndexSet, in container: [SneakerContainer]) {

@@ -46,6 +46,55 @@ final class MyRunsViewModel: ObservableObject {
             }
         }
     }
+    
+    func sort(runs: [RunningWorkoutContainer]) -> (pending: [RunningWorkoutContainer], past: [SneakerWithWorkouts]) {
+        
+        var pending = [RunningWorkoutContainer]()
+        var locals = [LocalSneaker]()
+        
+        runs.forEach { run in
+            if let sneaker = run.data.sneaker {
+                let local = LocalSneaker(
+                    id: sneaker.id,
+                    company: sneaker.company,
+                    model: sneaker.model,
+                    workout: LocalWorkout(
+                        id: run.data.id,
+                        start: run.data.start,
+                        end: run.data.end,
+                        duration: run.data.duration,
+                        totalEnergyBurned: run.data.totalEnergyBurned,
+                        totalDistance: run.data.totalDistance
+                    )
+                )
+
+
+                locals.append(local)
+            } else {
+                pending.append(run)
+            }
+        }
+        
+        return (pending, sort(past: locals))
+    }
+    
+    private func sort(past: [LocalSneaker]) -> [SneakerWithWorkouts] {
+        var workoutSneakers = [SneakerWithWorkouts]()
+        
+        let duplicatedSneakers = Dictionary(grouping: past, by: { $0.id }).compactMap { $0.value }
+        duplicatedSneakers.forEach { sneakers in
+            guard let sneaker = sneakers.first else { return }
+            workoutSneakers.append(
+                SneakerWithWorkouts(id: sneaker.id,
+                               company: sneaker.company,
+                               model: sneaker.model,
+                               workouts: sneakers.compactMap { $0.workout } )
+            )
+        }
+                
+        return workoutSneakers
+    }
+    
 
     private func fetchRunningWorkouts() {
         fetchService.fetch { [weak self] state in
