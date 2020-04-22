@@ -15,3 +15,9 @@ struct Container<T: Decodable
     let id: String
     let data: T
 }
+
+typealias SneakerState = LoadableState<[SneakerContainer]>
+typealias RunninWorkoutState = LoadableState<[RunningWorkoutContainer]>
+
+typealias SneakerContainer = Container<Sneaker>
+typealias RunningWorkoutContainer = Container<RunningWorkout>

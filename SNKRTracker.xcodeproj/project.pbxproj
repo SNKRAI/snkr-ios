@@ -365,8 +365,8 @@
 		2FDAF251244D861400BD3BE0 /* SneakerSearch */ = {
 			isa = PBXGroup;
 			children = (
-				2FDAF24F244D860B00BD3BE0 /* SneakerSearchView.swift */,
 				2FDAF24D244D85E000BD3BE0 /* SearchBar.swift */,
+				2FDAF24F244D860B00BD3BE0 /* SneakerSearchView.swift */,
 				2F520892244DB16B0078DE5E /* SneakerSearchViewModel.swift */,
 			);
 			path = SneakerSearch;

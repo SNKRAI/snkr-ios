@@ -7,12 +7,6 @@ struct MySneakersView: View {
         NavigationView {
             VStack {
                 stateView
-                .navigationBarItems(trailing:
-                    NavigationLink(destination:                 SneakerSearchView().environmentObject(SneakerSearchViewModel())
-                    ) {
-                        Text("Add more")
-                    }
-                )
             }.onAppear {
                 self.viewModel.fetchMySneakers()
             }

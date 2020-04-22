@@ -5,18 +5,18 @@ class MySneakersViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<MySneakersViewModel, Never>()
     private let fetchService: FetchService
     
-    @Published var state: LoadableState<[Container<Sneaker>]> = .loading {
+    @Published var state: SneakerState = .loading {
         didSet {
             changeObserver.send(self)
         }
     }
-    
-     init(
+
+    init(
         fetchService: FetchService = FetchService(
         keys: Keys(collection: .userId,
                  document: .sneakers))
-     ) {
-        self.fetchService = fetchService        
+    ) {
+        self.fetchService = fetchService
     }
     
     func fetchMySneakers() {
@@ -25,7 +25,7 @@ class MySneakersViewModel: ObservableObject {
         }
     }
     
-    func delete(at indexSet: IndexSet, in container: [Container<Sneaker>]) {
+    func delete(at indexSet: IndexSet, in container: [SneakerContainer]) {
         guard let index = Array(indexSet).first else { return }
         var saved = container                
         fetchService.delete(containerId: container[index].id) { [weak self] result in
@@ -33,7 +33,7 @@ class MySneakersViewModel: ObservableObject {
             if case .success = result {
                 if let index = container.firstIndex(of: saved[index]) {
                     saved.remove(at: index)
-                    self.state = .fetched(saved)
+                    self.state = saved.isEmpty ? .empty : .fetched(saved)
                 }
             }
         }

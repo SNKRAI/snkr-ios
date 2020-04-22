@@ -6,20 +6,16 @@ struct SneakerSearchView: View {
     @State private var searchText = ""
 
     var body: some View {
-        
         VStack {
             SearchBar(text: $searchText)
             stateView
         }
         .navigationBarTitle(Text("Search"))
-//        .alert(isPresented: self.$viewModel.hasAdded) {
-//               Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
-//        }
     }
     
     private var stateView: AnyView {
         switch viewModel.state {
-            case .loading:
+        case .loading:
                 return AnyView(Text("Loading"))
             case .fetched(let sneakers):
                 var filtered: [Sneaker]

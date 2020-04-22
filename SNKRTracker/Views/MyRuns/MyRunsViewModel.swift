@@ -1,13 +1,13 @@
 import Combine
 
 final class MyRunsViewModel: ObservableObject {
-    
+
     private let changeObserver = PassthroughSubject<MyRunsViewModel, Never>()
     private let healthKitManager: HealthKitManagerProtocol
-     
+
     private let fetchService: FetchService
 
-    @Published var state: LoadableState<[Container<RunningWorkout>]> = .loading {
+    @Published var state: RunninWorkoutState = .loading {
         didSet {
             changeObserver.send(self)
         }
@@ -21,10 +21,10 @@ final class MyRunsViewModel: ObservableObject {
     ) {
         self.fetchService = fetchService
         self.healthKitManager = healthKitManager
-        
+
         fetch()
     }
-    
+
     func fetch() {
         healthKitManager.observeAndSaveWorkouts { [weak self] result in
             guard let self = self else { return }
@@ -46,7 +46,7 @@ final class MyRunsViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func fetchRunningWorkouts() {
         fetchService.fetch { [weak self] state in
             self?.state = state
