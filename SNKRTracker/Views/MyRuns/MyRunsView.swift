@@ -7,21 +7,24 @@ struct MyRunsView: View {
     private let userService: FirebaseUserServiceProtocol = FirebaseUserService()
     
     @State var shouldModal = false
+    
+    init() {
+        UITableView.appearance().separatorStyle = .none
+        UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
+    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                stateView
-                .navigationBarTitle("My runs")
-                .navigationBarItems(leading:
-                    Button("My Sneakers") {
-                        self.shouldModal = true
-                    }, trailing:
-                    Button("Logout") {
-                        self.userService.logout()
-                    }
-                )
-            }
+            stateView
+            .navigationBarTitle("My runs")
+            .navigationBarItems(leading:
+                Button("My Sneakers") {
+                    self.shouldModal = true
+                }, trailing:
+                Button("Logout") {
+                    self.userService.logout()
+                }
+            )
         }.sheet(isPresented: $shouldModal) {
             MySneakersView().environmentObject(MySneakersViewModel())
         }
@@ -35,8 +38,9 @@ struct MyRunsView: View {
             return AnyView(Text("EMPTY"))
         case .fetched(let runs):
             return AnyView(
-                List(runs) { run in
-                    Text("\(run.data.totalDistance ?? 0.0)")
+                ScrollView(.vertical, showsIndicators: false) {
+                    PendingRunsView(runs: runs)
+                    SneakerWorkoutView(runs: runs)
                 }
             )
         case .error(let reason):

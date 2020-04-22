@@ -22,17 +22,11 @@ struct MySneakersView: View {
                 PrimaryButton(
                     text: "Add",
                     destination: SneakerSearchView().environmentObject(SneakerSearchViewModel())
-                )
+                ).navigationBarItems(trailing: Text(""))
             )
         case .fetched(let container):
             return AnyView(
-                List {
-                    ForEach(container, id: \.self) { sneaker in
-                        Text(sneaker.data.model)
-                    }.onDelete { indexSet in
-                        self.viewModel.delete(at: indexSet, in: container)
-                    }
-                }
+                SneakerCardView(container: container, viewModel: viewModel)
             )
             
         case .error(let reason):
