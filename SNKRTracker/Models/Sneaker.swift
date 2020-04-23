@@ -17,7 +17,6 @@ struct Container<T: Decodable
     let data: T
 }
 
-
 /// Containers
 typealias SneakerContainer = Container<Sneaker>
 typealias RunningWorkoutContainer = Container<RunningWorkout>

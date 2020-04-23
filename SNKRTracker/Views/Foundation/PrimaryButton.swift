@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct PrimaryButton<V: View>: View {
+struct PrimaryButton<T: View>: View {
     let text: String
-    let destination: V
+    let destination: T
     
     var body: some View {
         NavigationLink(text, destination: destination)

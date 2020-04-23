@@ -31,11 +31,3 @@ struct SneakerCardView: View {
          )
     }
 }
-
-struct SneakerCardRow: View {
-    var sneaker: Sneaker
-    var body: some View {
-        Text(sneaker.model)
-    }
-}
-

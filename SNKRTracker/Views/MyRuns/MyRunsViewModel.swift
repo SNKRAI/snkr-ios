@@ -5,7 +5,7 @@ final class MyRunsViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<MyRunsViewModel, Never>()
     private let healthKitManager: HealthKitManagerProtocol
 
-    private let fetchService: FetchService
+    private let fetchService: FetchServiceProtocol
 
     @Published var state: MainState = .loading {
         didSet {
@@ -14,13 +14,11 @@ final class MyRunsViewModel: ObservableObject {
     }
 
     init(
-        fetchService: FetchService = FetchService(),
+        fetchService: FetchServiceProtocol = FetchService(),
         healthKitManager: HealthKitManagerProtocol = HealthKitManager()
     ) {
         self.fetchService = fetchService
         self.healthKitManager = healthKitManager
-
-        fetch()
     }
 
     func fetch() {

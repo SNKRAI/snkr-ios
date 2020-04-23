@@ -26,7 +26,7 @@
 		2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F520899245037460078DE5E /* PendingWorkouts.swift */; };
 		2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089D24504E2F0078DE5E /* HeaderView.swift */; };
 		2F5208A0245062700078DE5E /* SneakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089F245062700078DE5E /* SneakersView.swift */; };
-		2F5208A224507EA40078DE5E /* CachedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A124507EA40078DE5E /* CachedModels.swift */; };
+		2F5208A424518B860078DE5E /* SneakerCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A324518B860078DE5E /* SneakerCardRow.swift */; };
 		2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674524445CE600EEAFFB /* FirebaseManager.swift */; };
 		2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */; };
 		2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674B2444623A00EEAFFB /* OnboardingView.swift */; };
@@ -84,7 +84,7 @@
 		2F520899245037460078DE5E /* PendingWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWorkouts.swift; sourceTree = "<group>"; };
 		2F52089D24504E2F0078DE5E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		2F52089F245062700078DE5E /* SneakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersView.swift; sourceTree = "<group>"; };
-		2F5208A124507EA40078DE5E /* CachedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedModels.swift; sourceTree = "<group>"; };
+		2F5208A324518B860078DE5E /* SneakerCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerCardRow.swift; sourceTree = "<group>"; };
 		2F6F674524445CE600EEAFFB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		2F6F674B2444623A00EEAFFB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 				2F009EB42449AA51006076AB /* RunningWorkout.swift */,
 				2FDAF244244D7A8B00BD3BE0 /* LodableState.swift */,
 				2FDAF246244D830000BD3BE0 /* Sneaker.swift */,
-				2F5208A124507EA40078DE5E /* CachedModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -372,6 +371,7 @@
 				2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */,
 				2FDAF248244D831F00BD3BE0 /* MySneakersViewModel.swift */,
 				2F52089624502D710078DE5E /* SneakerCardView.swift */,
+				2F5208A324518B860078DE5E /* SneakerCardRow.swift */,
 			);
 			path = MySneakers;
 			sourceTree = "<group>";
@@ -556,7 +556,6 @@
 				2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */,
 				2FDAF245244D7A8B00BD3BE0 /* LodableState.swift in Sources */,
 				2F2230A1242CFFD700942066 /* HealthKitManager.swift in Sources */,
-				2F5208A224507EA40078DE5E /* CachedModels.swift in Sources */,
 				2F2230AA242D110600942066 /* HealthConfiguration.swift in Sources */,
 				2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */,
 				2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */,
@@ -584,6 +583,7 @@
 				2F8459D9242E385400B884C1 /* MyRunsDetailViewModel.swift in Sources */,
 				2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */,
 				2F6F6759244464BF00EEAFFB /* PageViewController.swift in Sources */,
+				2F5208A424518B860078DE5E /* SneakerCardRow.swift in Sources */,
 				2F6F6754244462DE00EEAFFB /* OnboardingBottomButton.swift in Sources */,
 				2F22308A242CE42200942066 /* MainView.swift in Sources */,
 				2F6F67502444629100EEAFFB /* PageViewContainer.swift in Sources */,

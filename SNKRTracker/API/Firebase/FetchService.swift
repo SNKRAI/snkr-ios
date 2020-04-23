@@ -2,6 +2,12 @@ import FirebaseAuth
 import FirebaseFirestore
 import CodableFirebase
 
+protocol FetchServiceProtocol {
+    func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void)
+    func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
+    func delete(containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
+}
+
 class FetchService {
     private let firestore: Firestore
     private var runninWorkoutContainer = [RunningWorkoutContainer]()
@@ -11,7 +17,38 @@ class FetchService {
     init(firestore: Firestore = Firestore.firestore()) {
         self.firestore = firestore
     }
+
+    private func sortData(from document: QueryDocumentSnapshot) {
+        guard let documentType = Document(rawValue: document.documentID) else { return }
+        switch documentType {
+        case .sneakers:
+            if let decoded = decode(data: document.data(), into: [String: Sneaker].self) {
+                sneakerContainer.append(contentsOf: decoded)
+            } else {
+                errors.append(.decododingError)
+            }
+        case .pendingWorkouts:
+            if let decoded = decode(data: document.data(), into: [String: RunningWorkout].self) {
+                runninWorkoutContainer.append(contentsOf: decoded)
+            } else {
+                errors.append(.decododingError)
+            }
+        default:
+            break
+        }
+    }
     
+    private func decode<T: Codable & Hashable>(data: [String: Any], into type: [String: T].Type) -> [Container<T>]? {
+        do {
+            return try FirebaseDecoder().decode(type, from: data).map { Container(id: $0.key, data: $0.value) }
+        } catch let error {
+            print("Decoding error: \(error.localizedDescription)")
+        }
+        return nil
+    }
+}
+
+extension FetchService: FetchServiceProtocol {
     func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void) {
         let collectionId = Helper.path(for: collection)
         let ref = firestore.collection(collectionId)
@@ -76,34 +113,5 @@ class FetchService {
             }
             completion(.success(()))
         }
-    }
-    
-    private func sortData(from document: QueryDocumentSnapshot) {
-        guard let documentType = Document(rawValue: document.documentID) else { return }
-        switch documentType {
-        case .sneakers:
-            if let decoded = decode(data: document.data(), into: [String: Sneaker].self) {
-                sneakerContainer.append(contentsOf: decoded)
-            } else {
-                errors.append(.decododingError)
-            }
-        case .pendingWorkouts:
-            if let decoded = decode(data: document.data(), into: [String: RunningWorkout].self) {
-                runninWorkoutContainer.append(contentsOf: decoded)
-            } else {
-                errors.append(.decododingError)
-            }
-        default:
-            break
-        }
-    }
-    
-    private func decode<T: Codable & Hashable>(data: [String: Any], into type: [String: T].Type) -> [Container<T>]? {
-        do {
-            return try FirebaseDecoder().decode(type, from: data).map { Container(id: $0.key, data: $0.value) }
-        } catch let error {
-            print("Decoding error: \(error.localizedDescription)")
-        }
-        return nil
     }
 }

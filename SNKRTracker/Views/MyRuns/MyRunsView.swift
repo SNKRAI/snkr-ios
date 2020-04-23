@@ -29,6 +29,7 @@ struct MyRunsView: View {
             MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
         }
     }
+    
 
     private var stateView: AnyView {
         switch viewModel.state {
@@ -39,8 +40,11 @@ struct MyRunsView: View {
         case .fetched(let pendingWorkouts, let sneakers):
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
-                    PendingRunsView(runs: pendingWorkouts)
-                    SneakersView(sneakers: sneakers)
+                    PendingRunsView(runs: pendingWorkouts, sneakers: sneakers)
+                    SneakersView(sneakers: sneakers) { sneaker in
+                        print("soqwkdo")
+                        
+                    }
                 }
             )
             case .error(let reason):
