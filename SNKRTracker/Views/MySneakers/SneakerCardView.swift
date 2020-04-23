@@ -5,6 +5,7 @@ struct SneakerCardView: View {
     let viewModel: MySneakersViewModel
     let source: Source
     let completion: (() -> Void)
+    let sneakerCompletion: (SneakerContainer) -> Void
 
     var body: some View {
         List {
@@ -28,7 +29,10 @@ struct SneakerCardView: View {
             }
         }.navigationBarItems(trailing:
              NavigationLink(destination:
-                SneakerSearchView().environmentObject(SneakerSearchViewModel())
+                SneakerSearchView() { sneaker in
+                    self.sneakerCompletion(sneaker)
+                    
+                }.environmentObject(SneakerSearchViewModel())
              ) {
                  Text("Add more")
              }

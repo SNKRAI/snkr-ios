@@ -2,8 +2,9 @@ import SwiftUI
 
 struct SneakerSearchView: View {
     @EnvironmentObject var viewModel: SneakerSearchViewModel
+    @Environment(\.presentationMode) var presentation
     @State private var searchText = ""
-    var completion: ((SneakerContainer) -> Void)? = nil
+    var completion: ((SneakerContainer) -> Void)
 
     var body: some View {
         VStack {
@@ -30,7 +31,8 @@ struct SneakerSearchView: View {
                         ForEach(filtered) { sneaker in
                             Button(action: {
                                 self.viewModel.add(sneaker.data) {
-                                    self.completion?(sneaker)
+                                    self.presentation.wrappedValue.dismiss()
+                                    self.completion(sneaker)
                                 }
                             }) {
                                 Text(sneaker.data.model)

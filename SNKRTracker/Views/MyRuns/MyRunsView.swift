@@ -29,7 +29,11 @@ struct MyRunsView: View {
             )
         }
         .sheet(isPresented: $shouldModal) {
-            MySneakersView(source: .runsView) { }.environmentObject(MySneakersViewModel())
+            MySneakersView(source: .runsView, completion: {
+                print("??")
+            }) { sneaker in
+                self.viewModel.append(sneaker: sneaker)
+            }.environmentObject(MySneakersViewModel())
         }
     }
 
@@ -42,9 +46,12 @@ struct MyRunsView: View {
         case .fetched(let pendingWorkouts, let sneakers):
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
-                    PendingRunsView(runs: pendingWorkouts, sneakers: sneakers) {
+                    PendingRunsView(runs: pendingWorkouts, sneakers: sneakers, completion: {
                         self.viewModel.fetch()
+                    }) { sneaker in
+                        self.viewModel.append(sneaker: sneaker)
                     }
+                
                     SneakersView(sneakers: sneakers, searchViewModel: searchViewModel) { sneaker in
                         self.viewModel.append(sneaker: sneaker)
                     }
