@@ -6,7 +6,10 @@ enum Source {
 
 struct MySneakersView: View {
     @EnvironmentObject var viewModel: MySneakersViewModel
+    @Environment(\.presentationMode) var presentation
+
     let source: Source
+    let completion: (() -> Void)
 
     var body: some View {
         NavigationView {
@@ -31,7 +34,10 @@ struct MySneakersView: View {
             )
         case .fetched(let container):
             return AnyView(
-                SneakerCardView(container: container, viewModel: viewModel, source: source)
+                SneakerCardView(container: container, viewModel: viewModel, source: source) {
+                    self.presentation.wrappedValue.dismiss()
+                    self.completion()
+                }
             )
             
         case .error(let reason):

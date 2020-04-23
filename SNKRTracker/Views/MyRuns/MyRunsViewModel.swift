@@ -7,6 +7,12 @@ final class MyRunsViewModel: ObservableObject {
 
     private var fetchService: FetchServiceProtocol
 
+    @Published var reload: Bool = false {
+        didSet {
+            fetch()
+        }
+    }
+    
     @Published var state: MainState = .loading {
         didSet {
             changeObserver.send(self)
@@ -19,7 +25,7 @@ final class MyRunsViewModel: ObservableObject {
     ) {
         self.fetchService = fetchService
         self.healthKitManager = healthKitManager
-        
+
         fetch()
     }
 
@@ -37,7 +43,6 @@ final class MyRunsViewModel: ObservableObject {
             switch result {
             case .success(let result):
                 self.fetchRunningWorkouts()
-                // TODO: Do not fetch data if there are no new workouts
             case .failure(let error):
                 if case .noHealthKitPermissions = error {
                     self.healthKitManager.requestHealthKitPermissions { [weak self] result in

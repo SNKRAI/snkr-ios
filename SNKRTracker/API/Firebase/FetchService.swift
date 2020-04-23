@@ -54,6 +54,10 @@ class FetchService {
 
 extension FetchService: FetchServiceProtocol {
     func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void) {
+        
+        runninWorkoutContainer = []
+        sneakerContainer = []
+    
         let collectionId = Helper.path(for: collection)
         let ref = firestore.collection(collectionId)
         

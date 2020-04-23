@@ -3,6 +3,7 @@ import SwiftUI
 struct PendingRunsView: View {
     var runs: [RunningWorkoutContainer]
     var sneakers: [SneakerContainer]
+    var completion: () -> Void
 
     @State private var showModal = false
     
@@ -24,7 +25,9 @@ struct PendingRunsView: View {
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                             }.sheet(isPresented: self.$showModal) {
-                                MySneakersView(source: .pendingWorkout(run)).environmentObject(MySneakersViewModel())
+                                MySneakersView(source: .pendingWorkout(run)) {
+                                    self.completion()
+                                }.environmentObject(MySneakersViewModel())
                             }
                         }
                     }

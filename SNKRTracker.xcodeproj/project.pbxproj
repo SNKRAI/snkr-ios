@@ -43,7 +43,7 @@
 		2F6F67662447411E00EEAFFB /* MyRunsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67652447411E00EEAFFB /* MyRunsViewModel.swift */; };
 		2F6F67682447416B00EEAFFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67672447416B00EEAFFB /* Constants.swift */; };
 		2F6F676A2447418800EEAFFB /* FetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67692447418800EEAFFB /* FetchError.swift */; };
-		2F8031B62433353800EAF82B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8031B52433353800EAF82B /* Environment.swift */; };
+		2F8031B62433353800EAF82B /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8031B52433353800EAF82B /* Env.swift */; };
 		2F8459CD242D4ACB00B884C1 /* MyRunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459CC242D4ACB00B884C1 /* MyRunsView.swift */; };
 		2F8459D2242D4B1600B884C1 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459D1242D4B1600B884C1 /* AppDefaults.swift */; };
 		2F8459D9242E385400B884C1 /* MyRunsDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459D8242E385400B884C1 /* MyRunsDetailViewModel.swift */; };
@@ -104,7 +104,7 @@
 		2F6F67692447418800EEAFFB /* FetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchError.swift; sourceTree = "<group>"; };
 		2F8031B32433304700EAF82B /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
 		2F8031B42433306300EAF82B /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
-		2F8031B52433353800EAF82B /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		2F8031B52433353800EAF82B /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		2F8031D12433551900EAF82B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F8031D32433552500EAF82B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F8459CC242D4ACB00B884C1 /* MyRunsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsView.swift; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 				2F8031CE243354AC00EAF82B /* Firebase */,
 				2F8031B32433304700EAF82B /* Dev.xcconfig */,
 				2F8031B42433306300EAF82B /* Prod.xcconfig */,
-				2F8031B52433353800EAF82B /* Environment.swift */,
+				2F8031B52433353800EAF82B /* Env.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -605,7 +605,7 @@
 				2FDAF247244D830000BD3BE0 /* Sneaker.swift in Sources */,
 				2F009EB52449AA51006076AB /* RunningWorkout.swift in Sources */,
 				2F6F676224471DEA00EEAFFB /* LoginModels.swift in Sources */,
-				2F8031B62433353800EAF82B /* Environment.swift in Sources */,
+				2F8031B62433353800EAF82B /* Env.swift in Sources */,
 				2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

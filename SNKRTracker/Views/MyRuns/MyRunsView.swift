@@ -5,8 +5,9 @@ struct MyRunsView: View {
     @EnvironmentObject var viewModel: MyRunsViewModel
     private let userService: FirebaseUserServiceProtocol = FirebaseUserService()
     private let searchViewModel = SneakerSearchViewModel()
-    
+
     @State var shouldModal = false
+    
 
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -28,7 +29,7 @@ struct MyRunsView: View {
             )
         }
         .sheet(isPresented: $shouldModal) {
-            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
+            MySneakersView(source: .runsView) { }.environmentObject(MySneakersViewModel())
         }
     }
 
@@ -41,7 +42,9 @@ struct MyRunsView: View {
         case .fetched(let pendingWorkouts, let sneakers):
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
-                    PendingRunsView(runs: pendingWorkouts, sneakers: sneakers)
+                    PendingRunsView(runs: pendingWorkouts, sneakers: sneakers) {
+                        self.viewModel.fetch()
+                    }
                     SneakersView(sneakers: sneakers, searchViewModel: searchViewModel) { sneaker in
                         self.viewModel.append(sneaker: sneaker)
                     }
