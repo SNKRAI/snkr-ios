@@ -3,15 +3,18 @@ import FirebaseFirestore
 import CodableFirebase
 
 protocol FetchServiceProtocol {
+    var runninWorkoutContainer: [RunningWorkoutContainer] { get set }
+    var sneakerContainer: [SneakerContainer] { get set }
     func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void)
     func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
     func delete(containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
 }
 
 class FetchService {
+    var runninWorkoutContainer = [RunningWorkoutContainer]()
+    var sneakerContainer = [SneakerContainer]()
+
     private let firestore: Firestore
-    private var runninWorkoutContainer = [RunningWorkoutContainer]()
-    private var sneakerContainer = [SneakerContainer]()
     private var errors = [FetchError]()
     
     init(firestore: Firestore = Firestore.firestore()) {

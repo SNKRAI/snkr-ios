@@ -5,12 +5,18 @@ struct HeaderButtonView<T: View>: View {
     var title: String
     var destination: T
     
+    @State private var showModal = false
+    
     var body: some View {
         HStack {
             HeaderView(text: text)
             Spacer()
-            NavigationLink(destination: destination) {
+            Button(action: {
+                self.showModal = true
+            }) {
                 Text(title)
+            }.sheet(isPresented: self.$showModal) {
+                self.destination
             }
         }
     }

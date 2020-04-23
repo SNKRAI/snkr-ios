@@ -3,11 +3,11 @@ import HealthKit
 
 struct MyRunsView: View {
     @EnvironmentObject var viewModel: MyRunsViewModel
-
     private let userService: FirebaseUserServiceProtocol = FirebaseUserService()
+    private let searchViewModel = SneakerSearchViewModel()
     
     @State var shouldModal = false
-    
+
     init() {
         UITableView.appearance().separatorStyle = .none
         UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
@@ -17,19 +17,21 @@ struct MyRunsView: View {
         NavigationView {
             stateView
             .navigationBarTitle("My runs")
-            .navigationBarItems(leading:
-                Button("My Sneakers") {
-                    self.shouldModal = true
-                }, trailing:
+            .navigationBarItems(
+//                leading:
+//                Button("My Sneakers") {
+//                    self.shouldModal = true
+//                },
+                trailing:
                 Button("Logout") {
                     self.userService.logout()
                 }
             )
-        }.sheet(isPresented: $shouldModal) {
-            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
         }
+//        .sheet(isPresented: $shouldModal) {
+//            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
+//        }
     }
-    
 
     private var stateView: AnyView {
         switch viewModel.state {
@@ -41,9 +43,8 @@ struct MyRunsView: View {
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
                     PendingRunsView(runs: pendingWorkouts, sneakers: sneakers)
-                    SneakersView(sneakers: sneakers) { sneaker in
-                        print("soqwkdo")
-                        
+                    SneakersView(sneakers: sneakers, searchViewModel: searchViewModel) { sneaker in
+                        self.viewModel.append(sneaker: sneaker)
                     }
                 }
             )

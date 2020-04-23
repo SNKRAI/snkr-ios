@@ -21,7 +21,7 @@ class SneakerSearchViewModel: ObservableObject {
         self.saverService = saverService
         fetchSneakers()
     }
-    
+
     func fetchSneakers() {
         let keys = Keys(collection: .allSneakers, document: .models)
         fetchService.fetch(with: keys) { [weak self] state in
@@ -29,11 +29,10 @@ class SneakerSearchViewModel: ObservableObject {
         }
     }
     
-//    , completion: @escaping () -> Void
-    func add(_ sneaker: Sneaker) {
+    func add(_ sneaker: Sneaker, completion: @escaping () -> Void) {
         saverService.save(entry: .sneaker(sneaker)) { result in
             if case .success = result {
-                print("success")
+                completion()
             }
         }
     }
