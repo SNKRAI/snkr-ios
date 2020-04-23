@@ -4,7 +4,7 @@ struct Sneaker: Identifiable, Codable, Hashable {
     var id = UUID()
     let company: String
     let model: String
-    let workouts: [RunningWorkoutContainer]?
+    let workouts: [String: RunningWorkout]?
 }
 
 struct Container<T: Decodable

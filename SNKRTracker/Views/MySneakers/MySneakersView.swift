@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Source {
-    case pendingWorkout(RunningWorkout), runsView
+    case pendingWorkout(RunningWorkoutContainer), runsView
 }
 
 struct MySneakersView: View {

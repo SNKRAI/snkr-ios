@@ -24,7 +24,7 @@ struct PendingRunsView: View {
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                             }.sheet(isPresented: self.$showModal) {
-                                MySneakersView(source: .pendingWorkout(run.data)).environmentObject(MySneakersViewModel())
+                                MySneakersView(source: .pendingWorkout(run)).environmentObject(MySneakersViewModel())
                             }
                         }
                     }

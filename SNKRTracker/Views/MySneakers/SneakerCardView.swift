@@ -10,11 +10,12 @@ struct SneakerCardView: View {
             ForEach(container, id: \.self) { model in
                 Button(action: {
                     switch self.source {
-                    case .pendingWorkout(var workout):
-                        workout.sneaker = model.data
-                        self.viewModel.rowSelected(with: workout)
-                    case .runsView:
-                        print("open details view may be?")
+                    case .pendingWorkout(let workout):
+                        self.viewModel.save(workout: workout, for: model) { _ in
+                        
+                        }
+                    default:
+                        break
                     }
                 }) {
                     SneakerCardRow(sneaker: model.data)

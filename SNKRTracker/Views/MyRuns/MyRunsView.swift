@@ -17,20 +17,19 @@ struct MyRunsView: View {
         NavigationView {
             stateView
             .navigationBarTitle("My runs")
-            .navigationBarItems(
-//                leading:
-//                Button("My Sneakers") {
-//                    self.shouldModal = true
-//                },
+            .navigationBarItems(leading:
+                Button("My Sneakers") {
+                    self.shouldModal = true
+                },
                 trailing:
                 Button("Logout") {
                     self.userService.logout()
                 }
             )
         }
-//        .sheet(isPresented: $shouldModal) {
-//            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
-//        }
+        .sheet(isPresented: $shouldModal) {
+            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
+        }
     }
 
     private var stateView: AnyView {

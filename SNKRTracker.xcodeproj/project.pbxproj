@@ -27,6 +27,7 @@
 		2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089D24504E2F0078DE5E /* HeaderView.swift */; };
 		2F5208A0245062700078DE5E /* SneakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089F245062700078DE5E /* SneakersView.swift */; };
 		2F5208A424518B860078DE5E /* SneakerCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A324518B860078DE5E /* SneakerCardRow.swift */; };
+		2F5208A82451B8A10078DE5E /* SneakersWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A72451B8A10078DE5E /* SneakersWorkoutsView.swift */; };
 		2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674524445CE600EEAFFB /* FirebaseManager.swift */; };
 		2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */; };
 		2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674B2444623A00EEAFFB /* OnboardingView.swift */; };
@@ -85,6 +86,7 @@
 		2F52089D24504E2F0078DE5E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		2F52089F245062700078DE5E /* SneakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersView.swift; sourceTree = "<group>"; };
 		2F5208A324518B860078DE5E /* SneakerCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerCardRow.swift; sourceTree = "<group>"; };
+		2F5208A72451B8A10078DE5E /* SneakersWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersWorkoutsView.swift; sourceTree = "<group>"; };
 		2F6F674524445CE600EEAFFB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		2F6F674B2444623A00EEAFFB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -213,7 +215,8 @@
 		2F22309A242CE4B900942066 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2F520898245037350078DE5E /* WorkoutViews */,
+				2F5208A62451B8970078DE5E /* SneakerView */,
+				2F520898245037350078DE5E /* PendingWorkouts */,
 				2FDAF251244D861400BD3BE0 /* SneakerSearch */,
 				2FDAF24A244D857700BD3BE0 /* Foundation */,
 				2FDAF241244D76B200BD3BE0 /* MySneakers */,
@@ -267,13 +270,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		2F520898245037350078DE5E /* WorkoutViews */ = {
+		2F520898245037350078DE5E /* PendingWorkouts */ = {
 			isa = PBXGroup;
 			children = (
 				2F520899245037460078DE5E /* PendingWorkouts.swift */,
+			);
+			path = PendingWorkouts;
+			sourceTree = "<group>";
+		};
+		2F5208A62451B8970078DE5E /* SneakerView */ = {
+			isa = PBXGroup;
+			children = (
+				2F5208A72451B8A10078DE5E /* SneakersWorkoutsView.swift */,
 				2F52089F245062700078DE5E /* SneakersView.swift */,
 			);
-			path = WorkoutViews;
+			path = SneakerView;
 			sourceTree = "<group>";
 		};
 		2F6F674724445D2A00EEAFFB /* Firebase */ = {
@@ -556,6 +567,7 @@
 				2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */,
 				2FDAF245244D7A8B00BD3BE0 /* LodableState.swift in Sources */,
 				2F2230A1242CFFD700942066 /* HealthKitManager.swift in Sources */,
+				2F5208A82451B8A10078DE5E /* SneakersWorkoutsView.swift in Sources */,
 				2F2230AA242D110600942066 /* HealthConfiguration.swift in Sources */,
 				2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */,
 				2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */,

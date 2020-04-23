@@ -7,7 +7,7 @@ protocol FetchServiceProtocol {
     var sneakerContainer: [SneakerContainer] { get set }
     func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void)
     func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
-    func delete(containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
+    func delete(for keys: Keys, containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
 }
 
 class FetchService {
@@ -30,6 +30,7 @@ class FetchService {
             } else {
                 errors.append(.decododingError)
             }
+        
         case .pendingWorkouts:
             if let decoded = decode(data: document.data(), into: [String: RunningWorkout].self) {
                 runninWorkoutContainer.append(contentsOf: decoded)
@@ -102,8 +103,7 @@ extension FetchService: FetchServiceProtocol {
         }
     }
     
-    func delete(containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
-        let keys = Keys(collection: .userId, document: .sneakers)
+    func delete(for keys: Keys, containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
         

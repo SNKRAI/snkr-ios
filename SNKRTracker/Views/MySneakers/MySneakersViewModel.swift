@@ -27,14 +27,24 @@ class MySneakersViewModel: ObservableObject {
         }
     }
 
-    func rowSelected(with workout: RunningWorkout) {
-        print("SAVE:", workout.sneaker, "FOR:", workout.totalDistance!)
+    func save(workout: RunningWorkoutContainer, for sneaker: SneakerContainer, completion: @escaping (Swift.Result<Void, FetchError>) -> Void) {
+        saveService.save(entry: .workout(workout, sneaker)) { [weak self] result in
+            guard let self = self else { return }
+            
+            if case .success = result {
+                let keys = Keys(collection: .userId, document: .pendingWorkouts)
+                self.fetchService.delete(for: keys, containerId: workout.id) { result in
+                    completion(result)
+                }
+            }
+        }
     }
 
     func delete(at indexSet: IndexSet, in container: [SneakerContainer]) {
         guard let index = Array(indexSet).first else { return }
         var saved = container
-        fetchService.delete(containerId: container[index].id) { [weak self] result in
+        let keys = Keys(collection: .userId, document: .sneakers)
+        fetchService.delete(for: keys, containerId: container[index].id) { [weak self] result in
             guard let self = self else { return }
             if case .success = result {
                 if let index = container.firstIndex(of: saved[index]) {

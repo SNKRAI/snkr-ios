@@ -35,8 +35,9 @@ final class MyRunsViewModel: ObservableObject {
         healthKitManager.observeAndSaveWorkouts { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
+            case .success(let result):
                 self.fetchRunningWorkouts()
+                // TODO: Do not fetch data if there are no new workouts
             case .failure(let error):
                 if case .noHealthKitPermissions = error {
                     self.healthKitManager.requestHealthKitPermissions { [weak self] result in

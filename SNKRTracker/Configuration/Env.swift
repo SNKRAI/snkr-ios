@@ -1,6 +1,6 @@
 import Foundation
 
-enum Environment {
+enum Env {
     enum Keys {
         enum Plist {
             static let whatever = "whatever"

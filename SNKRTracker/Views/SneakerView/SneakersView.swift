@@ -22,12 +22,3 @@ struct SneakersView: View {
         }
     }
 }
-
-struct SneakersWorkoutsView: View {
-    
-    let sneaker: SneakerContainer
-    
-    var body: some View {
-        Text("Detail view")
-    }
-}

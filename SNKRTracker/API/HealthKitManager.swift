@@ -87,8 +87,7 @@ final class HealthKitManager {
             end: workout.endDate,
             duration: workout.duration,
             totalEnergyBurned: workout.totalEnergyBurned?.doubleValue(for: .kilocalorie()),
-            totalDistance: workout.totalDistance?.doubleValue(for: .mile()),
-            sneaker: nil
+            totalDistance: workout.totalDistance?.doubleValue(for: .mile())
         )
     }
 }
