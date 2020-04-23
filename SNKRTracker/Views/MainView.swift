@@ -20,7 +20,7 @@ struct MainView: View {
         case .notLoggedIn:
             return AnyView(LoginView().transition(.move(edge: .bottom)))
         case .loggedIn(let user):
-            return AnyView(MyRunsView().environmentObject(FirebaseLoader()))
+            return AnyView(MyRunsView().environmentObject(MyRunsViewModel()))
         }
     }
 }

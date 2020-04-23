@@ -6,16 +6,12 @@ struct Run: Identifiable {
     let workout: HKWorkout
 }
 
-struct Container: Codable {
-    let workouts: [RunningWorkout]
-}
-
-struct RunningWorkout: Identifiable, Codable {
+struct RunningWorkout: Identifiable, Codable, Hashable {
     var id = UUID()
     let start: Date
     let end: Date
     let duration: TimeInterval
     let totalEnergyBurned: Double?
     let totalDistance: Double?
-    let hasSneakers = false
+    var sneaker: Sneaker?
 }

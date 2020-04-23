@@ -2,36 +2,46 @@ import SwiftUI
 import HealthKit
 
 struct MyRunsView: View {
-    @EnvironmentObject var firebaseLoader: FirebaseLoader
+    @EnvironmentObject var viewModel: MyRunsViewModel
 
     private let userService: FirebaseUserServiceProtocol = FirebaseUserService()
+    
+    @State var shouldModal = false
+    
+    init() {
+        UITableView.appearance().separatorStyle = .none
+        UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
+    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                stateView
-                .navigationBarTitle("My runs")
-                .navigationBarItems(trailing:
-                    Button("Logout") {
-                        self.userService.logout()
-                    }
-                )
-            }
-        }.onAppear {
-            self.firebaseLoader.fetch()
+            stateView
+            .navigationBarTitle("My runs")
+            .navigationBarItems(leading:
+                Button("My Sneakers") {
+                    self.shouldModal = true
+                }, trailing:
+                Button("Logout") {
+                    self.userService.logout()
+                }
+            )
+        }.sheet(isPresented: $shouldModal) {
+            MySneakersView(source: .runsView).environmentObject(MySneakersViewModel())
         }
     }
 
-    var stateView: AnyView {
-        switch firebaseLoader.state {
+    private var stateView: AnyView {
+        switch viewModel.state {
         case .loading:
             return AnyView(Text("Loading"))
         case .empty:
             return AnyView(Text("EMPTY"))
         case .fetched(let runs):
+            let sorted = viewModel.sort(runs: runs)
             return AnyView(
-                List(runs) { run in
-                    Text("\(run.totalDistance!)")
+                ScrollView(.vertical, showsIndicators: false) {
+                    PendingRunsView(runs: sorted.pending)
+                    SneakerWorkoutView(runs: sorted.past)
                 }
             )
         case .error(let reason):

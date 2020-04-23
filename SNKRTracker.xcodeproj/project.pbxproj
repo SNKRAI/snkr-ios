@@ -20,6 +20,13 @@
 		2F2230A6242D004900942066 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2230A5242D004900942066 /* AppError.swift */; };
 		2F2230AA242D110600942066 /* HealthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2230A9242D110600942066 /* HealthConfiguration.swift */; };
 		2F47191B244898E5008E9399 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F47191A244898E5008E9399 /* Analytics.swift */; };
+		2F520893244DB16B0078DE5E /* SneakerSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F520892244DB16B0078DE5E /* SneakerSearchViewModel.swift */; };
+		2F520895244DBCA80078DE5E /* FetchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F520894244DBCA80078DE5E /* FetchService.swift */; };
+		2F52089724502D710078DE5E /* SneakerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089624502D710078DE5E /* SneakerCardView.swift */; };
+		2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F520899245037460078DE5E /* PendingWorkouts.swift */; };
+		2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089D24504E2F0078DE5E /* HeaderView.swift */; };
+		2F5208A0245062700078DE5E /* SneakerWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089F245062700078DE5E /* SneakerWorkoutView.swift */; };
+		2F5208A224507EA40078DE5E /* CachedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A124507EA40078DE5E /* CachedModels.swift */; };
 		2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674524445CE600EEAFFB /* FirebaseManager.swift */; };
 		2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */; };
 		2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674B2444623A00EEAFFB /* OnboardingView.swift */; };
@@ -32,7 +39,7 @@
 		2F6F675C244475D300EEAFFB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F675B244475D300EEAFFB /* LoginView.swift */; };
 		2F6F676024471DBE00EEAFFB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F675F24471DBE00EEAFFB /* LoginViewController.swift */; };
 		2F6F676224471DEA00EEAFFB /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F676124471DEA00EEAFFB /* LoginModels.swift */; };
-		2F6F67662447411E00EEAFFB /* FirebaseLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67652447411E00EEAFFB /* FirebaseLoader.swift */; };
+		2F6F67662447411E00EEAFFB /* MyRunsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67652447411E00EEAFFB /* MyRunsViewModel.swift */; };
 		2F6F67682447416B00EEAFFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67672447416B00EEAFFB /* Constants.swift */; };
 		2F6F676A2447418800EEAFFB /* FetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F67692447418800EEAFFB /* FetchError.swift */; };
 		2F8031B62433353800EAF82B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8031B52433353800EAF82B /* Environment.swift */; };
@@ -42,6 +49,13 @@
 		2F8459DB242E387900B884C1 /* MyRunsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DA242E387900B884C1 /* MyRunsDetailView.swift */; };
 		2F8459DD242E38A600B884C1 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DC242E38A600B884C1 /* MapView.swift */; };
 		2F8459DF242E5A5600B884C1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DE242E5A5600B884C1 /* NotificationManager.swift */; };
+		2FDAF243244D76C600BD3BE0 /* MySneakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */; };
+		2FDAF245244D7A8B00BD3BE0 /* LodableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF244244D7A8B00BD3BE0 /* LodableState.swift */; };
+		2FDAF247244D830000BD3BE0 /* Sneaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF246244D830000BD3BE0 /* Sneaker.swift */; };
+		2FDAF249244D831F00BD3BE0 /* MySneakersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF248244D831F00BD3BE0 /* MySneakersViewModel.swift */; };
+		2FDAF24C244D858500BD3BE0 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF24B244D858500BD3BE0 /* PrimaryButton.swift */; };
+		2FDAF24E244D85E000BD3BE0 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF24D244D85E000BD3BE0 /* SearchBar.swift */; };
+		2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF24F244D860B00BD3BE0 /* SneakerSearchView.swift */; };
 		ED84D4006EB8A8F3F16504BA /* Pods_SNKRTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32EABF371C86EB5A0D0A671 /* Pods_SNKRTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +78,13 @@
 		2F2230A5242D004900942066 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		2F2230A9242D110600942066 /* HealthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthConfiguration.swift; sourceTree = "<group>"; };
 		2F47191A244898E5008E9399 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		2F520892244DB16B0078DE5E /* SneakerSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerSearchViewModel.swift; sourceTree = "<group>"; };
+		2F520894244DBCA80078DE5E /* FetchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchService.swift; sourceTree = "<group>"; };
+		2F52089624502D710078DE5E /* SneakerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerCardView.swift; sourceTree = "<group>"; };
+		2F520899245037460078DE5E /* PendingWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWorkouts.swift; sourceTree = "<group>"; };
+		2F52089D24504E2F0078DE5E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		2F52089F245062700078DE5E /* SneakerWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerWorkoutView.swift; sourceTree = "<group>"; };
+		2F5208A124507EA40078DE5E /* CachedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedModels.swift; sourceTree = "<group>"; };
 		2F6F674524445CE600EEAFFB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		2F6F674B2444623A00EEAFFB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -76,7 +97,7 @@
 		2F6F675B244475D300EEAFFB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2F6F675F24471DBE00EEAFFB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2F6F676124471DEA00EEAFFB /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
-		2F6F67652447411E00EEAFFB /* FirebaseLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoader.swift; sourceTree = "<group>"; };
+		2F6F67652447411E00EEAFFB /* MyRunsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsViewModel.swift; sourceTree = "<group>"; };
 		2F6F67672447416B00EEAFFB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2F6F67692447418800EEAFFB /* FetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchError.swift; sourceTree = "<group>"; };
 		2F8031B32433304700EAF82B /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
@@ -90,6 +111,13 @@
 		2F8459DA242E387900B884C1 /* MyRunsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsDetailView.swift; sourceTree = "<group>"; };
 		2F8459DC242E38A600B884C1 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2F8459DE242E5A5600B884C1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySneakersView.swift; sourceTree = "<group>"; };
+		2FDAF244244D7A8B00BD3BE0 /* LodableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodableState.swift; sourceTree = "<group>"; };
+		2FDAF246244D830000BD3BE0 /* Sneaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sneaker.swift; sourceTree = "<group>"; };
+		2FDAF248244D831F00BD3BE0 /* MySneakersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySneakersViewModel.swift; sourceTree = "<group>"; };
+		2FDAF24B244D858500BD3BE0 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		2FDAF24D244D85E000BD3BE0 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchBar.swift; path = ../Foundation/SearchBar.swift; sourceTree = "<group>"; };
+		2FDAF24F244D860B00BD3BE0 /* SneakerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerSearchView.swift; sourceTree = "<group>"; };
 		846C4694F362C020B3DE8C99 /* Pods-SNKRTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNKRTracker.debug.xcconfig"; path = "Target Support Files/Pods-SNKRTracker/Pods-SNKRTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		881B1134901A392C8DEEF56A /* Pods-SNKRTracker.release (dev).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNKRTracker.release (dev).xcconfig"; path = "Target Support Files/Pods-SNKRTracker/Pods-SNKRTracker.release (dev).xcconfig"; sourceTree = "<group>"; };
 		A32EABF371C86EB5A0D0A671 /* Pods_SNKRTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNKRTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				2F009EB42449AA51006076AB /* RunningWorkout.swift */,
+				2FDAF244244D7A8B00BD3BE0 /* LodableState.swift */,
+				2FDAF246244D830000BD3BE0 /* Sneaker.swift */,
+				2F5208A124507EA40078DE5E /* CachedModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,6 +214,10 @@
 		2F22309A242CE4B900942066 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2F520898245037350078DE5E /* WorkoutViews */,
+				2FDAF251244D861400BD3BE0 /* SneakerSearch */,
+				2FDAF24A244D857700BD3BE0 /* Foundation */,
+				2FDAF241244D76B200BD3BE0 /* MySneakers */,
 				2F6F675A244475C500EEAFFB /* Login */,
 				2F6F674A2444622600EEAFFB /* Onboarding */,
 				2F8459D7242E384200B884C1 /* MyRunsDetail */,
@@ -233,12 +268,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		2F520898245037350078DE5E /* WorkoutViews */ = {
+			isa = PBXGroup;
+			children = (
+				2F520899245037460078DE5E /* PendingWorkouts.swift */,
+				2F52089F245062700078DE5E /* SneakerWorkoutView.swift */,
+			);
+			path = WorkoutViews;
+			sourceTree = "<group>";
+		};
 		2F6F674724445D2A00EEAFFB /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
 				2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */,
 				2F6F674524445CE600EEAFFB /* FirebaseManager.swift */,
-				2F6F67652447411E00EEAFFB /* FirebaseLoader.swift */,
+				2F520894244DBCA80078DE5E /* FetchService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -307,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				2F8459CC242D4ACB00B884C1 /* MyRunsView.swift */,
+				2F6F67652447411E00EEAFFB /* MyRunsViewModel.swift */,
 			);
 			path = MyRuns;
 			sourceTree = "<group>";
@@ -319,6 +364,35 @@
 				2F8459DC242E38A600B884C1 /* MapView.swift */,
 			);
 			path = MyRunsDetail;
+			sourceTree = "<group>";
+		};
+		2FDAF241244D76B200BD3BE0 /* MySneakers */ = {
+			isa = PBXGroup;
+			children = (
+				2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */,
+				2FDAF248244D831F00BD3BE0 /* MySneakersViewModel.swift */,
+				2F52089624502D710078DE5E /* SneakerCardView.swift */,
+			);
+			path = MySneakers;
+			sourceTree = "<group>";
+		};
+		2FDAF24A244D857700BD3BE0 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				2FDAF24B244D858500BD3BE0 /* PrimaryButton.swift */,
+				2F52089D24504E2F0078DE5E /* HeaderView.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		2FDAF251244D861400BD3BE0 /* SneakerSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2FDAF24D244D85E000BD3BE0 /* SearchBar.swift */,
+				2FDAF24F244D860B00BD3BE0 /* SneakerSearchView.swift */,
+				2F520892244DB16B0078DE5E /* SneakerSearchViewModel.swift */,
+			);
+			path = SneakerSearch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -476,26 +550,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FDAF24E244D85E000BD3BE0 /* SearchBar.swift in Sources */,
+				2F52089724502D710078DE5E /* SneakerCardView.swift in Sources */,
 				2F223086242CE42200942066 /* AppDelegate.swift in Sources */,
 				2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */,
+				2FDAF245244D7A8B00BD3BE0 /* LodableState.swift in Sources */,
 				2F2230A1242CFFD700942066 /* HealthKitManager.swift in Sources */,
+				2F5208A224507EA40078DE5E /* CachedModels.swift in Sources */,
 				2F2230AA242D110600942066 /* HealthConfiguration.swift in Sources */,
+				2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */,
+				2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */,
 				2F6F674E2444626800EEAFFB /* PageView.swift in Sources */,
+				2F5208A0245062700078DE5E /* SneakerWorkoutView.swift in Sources */,
 				2F2230A6242D004900942066 /* AppError.swift in Sources */,
-				2F6F67662447411E00EEAFFB /* FirebaseLoader.swift in Sources */,
+				2F6F67662447411E00EEAFFB /* MyRunsViewModel.swift in Sources */,
 				2F8459DF242E5A5600B884C1 /* NotificationManager.swift in Sources */,
 				2F47191B244898E5008E9399 /* Analytics.swift in Sources */,
 				2F223088242CE42200942066 /* SceneDelegate.swift in Sources */,
 				2F8459DD242E38A600B884C1 /* MapView.swift in Sources */,
 				2F8459DB242E387900B884C1 /* MyRunsDetailView.swift in Sources */,
+				2FDAF243244D76C600BD3BE0 /* MySneakersView.swift in Sources */,
 				2F6F67682447416B00EEAFFB /* Constants.swift in Sources */,
 				2F8459D2242D4B1600B884C1 /* AppDefaults.swift in Sources */,
 				2F6F676A2447418800EEAFFB /* FetchError.swift in Sources */,
 				2F6F6752244462B600EEAFFB /* PageIndicator.swift in Sources */,
+				2FDAF24C244D858500BD3BE0 /* PrimaryButton.swift in Sources */,
 				2F6F675C244475D300EEAFFB /* LoginView.swift in Sources */,
+				2F520893244DB16B0078DE5E /* SneakerSearchViewModel.swift in Sources */,
+				2FDAF249244D831F00BD3BE0 /* MySneakersViewModel.swift in Sources */,
+				2F520895244DBCA80078DE5E /* FetchService.swift in Sources */,
 				2F6F676024471DBE00EEAFFB /* LoginViewController.swift in Sources */,
 				2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */,
 				2F8459D9242E385400B884C1 /* MyRunsDetailViewModel.swift in Sources */,
+				2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */,
 				2F6F6759244464BF00EEAFFB /* PageViewController.swift in Sources */,
 				2F6F6754244462DE00EEAFFB /* OnboardingBottomButton.swift in Sources */,
 				2F22308A242CE42200942066 /* MainView.swift in Sources */,
@@ -503,6 +590,7 @@
 				2F2230A4242CFFED00942066 /* HealthKitAPIProtocol.swift in Sources */,
 				2F6F6756244464A400EEAFFB /* Page.swift in Sources */,
 				2F8459CD242D4ACB00B884C1 /* MyRunsView.swift in Sources */,
+				2FDAF247244D830000BD3BE0 /* Sneaker.swift in Sources */,
 				2F009EB52449AA51006076AB /* RunningWorkout.swift in Sources */,
 				2F6F676224471DEA00EEAFFB /* LoginModels.swift in Sources */,
 				2F8031B62433353800EAF82B /* Environment.swift in Sources */,
