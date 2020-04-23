@@ -43,8 +43,7 @@ extension FirebaseManager: FirebaseSaverProtocol {
         switch entry {
         case .runs(let runs):
             for run in runs {
-                saveToFirestore(model: run, keys: Keys(collection: .userId,
-                document: .workouts), completion: completion)
+                saveToFirestore(model: run, keys: Keys(collection: .userId, document: .pendingWorkouts), completion: completion)
             }
         case .sneaker(let sneaker):
             saveToFirestore(model: sneaker, keys: Keys(collection: .userId, document: .sneakers), completion: completion)

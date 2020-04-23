@@ -12,6 +12,7 @@ enum Collection: String {
 enum Document: String {
     case models
     case workouts
+    case pendingWorkouts
     case sneakers
 }
 

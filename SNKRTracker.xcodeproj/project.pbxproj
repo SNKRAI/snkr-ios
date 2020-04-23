@@ -25,7 +25,7 @@
 		2F52089724502D710078DE5E /* SneakerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089624502D710078DE5E /* SneakerCardView.swift */; };
 		2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F520899245037460078DE5E /* PendingWorkouts.swift */; };
 		2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089D24504E2F0078DE5E /* HeaderView.swift */; };
-		2F5208A0245062700078DE5E /* SneakerWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089F245062700078DE5E /* SneakerWorkoutView.swift */; };
+		2F5208A0245062700078DE5E /* SneakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F52089F245062700078DE5E /* SneakersView.swift */; };
 		2F5208A224507EA40078DE5E /* CachedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A124507EA40078DE5E /* CachedModels.swift */; };
 		2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674524445CE600EEAFFB /* FirebaseManager.swift */; };
 		2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */; };
@@ -83,7 +83,7 @@
 		2F52089624502D710078DE5E /* SneakerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerCardView.swift; sourceTree = "<group>"; };
 		2F520899245037460078DE5E /* PendingWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWorkouts.swift; sourceTree = "<group>"; };
 		2F52089D24504E2F0078DE5E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		2F52089F245062700078DE5E /* SneakerWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerWorkoutView.swift; sourceTree = "<group>"; };
+		2F52089F245062700078DE5E /* SneakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersView.swift; sourceTree = "<group>"; };
 		2F5208A124507EA40078DE5E /* CachedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedModels.swift; sourceTree = "<group>"; };
 		2F6F674524445CE600EEAFFB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				2F520899245037460078DE5E /* PendingWorkouts.swift */,
-				2F52089F245062700078DE5E /* SneakerWorkoutView.swift */,
+				2F52089F245062700078DE5E /* SneakersView.swift */,
 			);
 			path = WorkoutViews;
 			sourceTree = "<group>";
@@ -561,7 +561,7 @@
 				2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */,
 				2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */,
 				2F6F674E2444626800EEAFFB /* PageView.swift in Sources */,
-				2F5208A0245062700078DE5E /* SneakerWorkoutView.swift in Sources */,
+				2F5208A0245062700078DE5E /* SneakersView.swift in Sources */,
 				2F2230A6242D004900942066 /* AppError.swift in Sources */,
 				2F6F67662447411E00EEAFFB /* MyRunsViewModel.swift in Sources */,
 				2F8459DF242E5A5600B884C1 /* NotificationManager.swift in Sources */,

@@ -13,9 +13,7 @@ class MySneakersViewModel: ObservableObject {
     }
 
     init(
-        fetchService: FetchService = FetchService(
-        keys: Keys(collection: .userId,
-                 document: .sneakers)),
+        fetchService: FetchService = FetchService(),
         saveService: FirebaseManager = FirebaseManager()
     ) {
         self.fetchService = fetchService
@@ -23,7 +21,8 @@ class MySneakersViewModel: ObservableObject {
     }
     
     func fetchMySneakers() {
-        fetchService.fetch { [weak self] state in
+        let keys = Keys(collection: .userId, document: .sneakers)
+        fetchService.fetch(with: keys) { [weak self] state in
             self?.state = state
         }
     }

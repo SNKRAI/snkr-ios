@@ -36,16 +36,15 @@ struct MyRunsView: View {
             return AnyView(Text("Loading"))
         case .empty:
             return AnyView(Text("EMPTY"))
-        case .fetched(let runs):
-            let sorted = viewModel.sort(runs: runs)
+        case .fetched(let pendingWorkouts, let sneakers):
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {
-                    PendingRunsView(runs: sorted.pending)
-                    SneakerWorkoutView(runs: sorted.past)
+                    PendingRunsView(runs: pendingWorkouts)
+                    SneakersView(sneakers: sneakers)
                 }
             )
-        case .error(let reason):
-            return AnyView(Text("Error \(reason.localizedDescription)"))
+            case .error(let reason):
+                return AnyView(Text("Error \(reason.localizedDescription)"))
         }
     }
 }
