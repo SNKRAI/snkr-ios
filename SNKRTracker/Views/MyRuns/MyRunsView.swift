@@ -42,7 +42,15 @@ struct MyRunsView: View {
         case .loading:
             return AnyView(Text("Loading"))
         case .empty:
-            return AnyView(Text("EMPTY"))
+            return AnyView(
+                VStack {
+                    Text("No pening workouts, no sneakers")
+                    Text("Let's start by adding some shoes?")
+                    Buttons.sneakerSearchButton() { sneaker in
+                        self.viewModel.append(sneaker: sneaker)
+                    }
+                }
+            )
         case .fetched(let pendingWorkouts, let sneakers):
             return AnyView(
                 ScrollView(.vertical, showsIndicators: false) {

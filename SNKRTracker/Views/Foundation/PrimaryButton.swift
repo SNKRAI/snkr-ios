@@ -14,3 +14,13 @@ struct PrimaryButton<T: View>: View {
             .cornerRadius(5)
     }
 }
+
+struct Buttons {
+    static func sneakerSearchButton(completion: @escaping (SneakerContainer) -> Void) -> AnyView {
+        return AnyView(
+            PrimaryButton(text: "Add", destination: SneakerSearchView() { sneaker in
+                completion(sneaker)
+            }.environmentObject(SneakerSearchViewModel()))
+        )
+    }
+}

@@ -11,32 +11,41 @@ struct PendingRunsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Section(header: HeaderView(text: "Pending workouts").padding(.horizontal, Layout.padding)) {
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Layout.padding) {
-                        ForEach(runs) { run in
-                            Button(action: {
-                                self.showModal = true
-                            }) {
-                                VStack {
-                                    Text("\(run.data.totalDistance!)")
-                                }
-                                .frame(width: 300, height: 200)
-                                .background(Color.orange)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                            }.sheet(isPresented: self.$showModal) {
-                                MySneakersView(source: .pendingWorkout(run), completion: {
-                                    self.completion()
-                                }) { sneaker in
-                                    self.sneakerCompletion(sneaker)
-                                }.environmentObject(MySneakersViewModel())
-                            }
+                        if runs.isEmpty {
+                            Text("Empty state")
+                        } else {
+                            runsView
                         }
                     }
                 }
             }
         }
+    }
+    
+    private var runsView: AnyView {
+        return AnyView(
+            ForEach(runs) { run in
+                Button(action: {
+                    self.showModal = true
+                }) {
+                    VStack {
+                        Text("\(run.data.totalDistance!)")
+                    }
+                    .frame(width: 300, height: 200)
+                    .background(Color.orange)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                }.sheet(isPresented: self.$showModal) {
+                    MySneakersView(source: .pendingWorkout(run), completion: {
+                        self.completion()
+                    }) { sneaker in
+                        self.sneakerCompletion(sneaker)
+                    }.environmentObject(MySneakersViewModel())
+                }
+            }
+        )
     }
 }
 
