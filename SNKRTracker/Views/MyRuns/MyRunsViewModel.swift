@@ -6,12 +6,6 @@ final class MyRunsViewModel: ObservableObject {
     private let healthKitManager: HealthKitManagerProtocol
 
     private var fetchService: FetchServiceProtocol
-
-    @Published var reload: Bool = false {
-        didSet {
-            fetch()
-        }
-    }
     
     @Published var state: MainState = .loading {
         didSet {
