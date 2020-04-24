@@ -5,7 +5,7 @@ import CodableFirebase
 protocol FetchServiceProtocol {
     var runninWorkoutContainer: [RunningWorkoutContainer] { get set }
     var sneakerContainer: [SneakerContainer] { get set }
-    func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void)
+    func fetchAllDocuments(collection: Collection, completion: @escaping (MainState) -> Void)
     func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
     func delete(for keys: Keys, containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
 }
@@ -53,7 +53,7 @@ class FetchService {
 }
 
 extension FetchService: FetchServiceProtocol {
-    func fetchAllDocuments(collection: Collection, completion: @escaping (FetchState<[RunningWorkoutContainer], [SneakerContainer]>) -> Void) {
+    func fetchAllDocuments(collection: Collection, completion: @escaping (MainState) -> Void) {
         
         runninWorkoutContainer = []
         sneakerContainer = []
