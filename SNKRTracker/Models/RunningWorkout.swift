@@ -13,4 +13,9 @@ struct RunningWorkout: Identifiable, Codable, Hashable {
     let duration: TimeInterval
     let totalEnergyBurned: Double?
     let totalDistance: Double?
+    
+    /// `totalDistance`is saved in km (metricSystem) on the backend
+    var distance: Double? {
+        NSLocale.current.usesMetricSystem ? totalDistance : totalDistance?.inMiles
+    }
 }

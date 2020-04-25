@@ -31,7 +31,7 @@ struct PendingRunsView: View {
                     self.showModal = true
                 }) {
                     VStack {
-                        Text("\(run.data.totalDistance!)")
+                        Text(run.data.distance?.distanceString ?? "")
                     }
                     .frame(width: 300, height: 200)
                     .background(Color.orange)

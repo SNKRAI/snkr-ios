@@ -55,7 +55,7 @@ extension NotificationManager: NotificationManagerProtocol {
     func sendNotification(for runs: [RunningWorkout]) {
         var message: String
         if runs.count == 1 {
-            message = "Amazing \(runs.first?.totalDistance) km run. In what sneakers did you make this workot?"
+            message = "Amazing \(runs.first?.distance?.distanceString ?? "") km run. In what sneakers did you make this workot?"
         } else {
             message = "You are insane"
         }

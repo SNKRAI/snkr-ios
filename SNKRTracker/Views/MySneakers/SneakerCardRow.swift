@@ -6,7 +6,7 @@ struct SneakerCardRow: View {
         VStack {
             Text(sneaker.company)
             Text(sneaker.model)
-            Text("\(totalDistance ?? 0)")
+            Text(totalDistance?.distanceString ?? "")
         }
         .frame(width: UIScreen.main.bounds.width - (Layout.padding * 2), height: 200)
         .background(Color.gray)
