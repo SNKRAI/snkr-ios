@@ -31,18 +31,20 @@ struct PendingRunsView: View {
                     self.showModal = true
                 }) {
                     VStack {
-                        Text(run.data.distance?.distanceString ?? "")
+                        Text(String(describing: run.data.totalDistance?.doubleValue(for: .mile())))
                     }
                     .frame(width: 300, height: 200)
                     .background(Color.orange)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                 }.sheet(isPresented: self.$showModal) {
-                    MySneakersView(source: .pendingWorkout(run), completion: {
-                        self.completion()
-                    }) { sneaker in
-                        self.sneakerCompletion(sneaker)
-                    }.environmentObject(MySneakersViewModel())
+                    MyRunsDetailView(workout: run.data)
+                    
+//                    MySneakersView(source: .pendingWorkout(run), completion: {
+//                        self.completion()
+//                    }) { sneaker in
+//                        self.sneakerCompletion(sneaker)
+//                    }.environmentObject(MySneakersViewModel())
                 }
             }
         )

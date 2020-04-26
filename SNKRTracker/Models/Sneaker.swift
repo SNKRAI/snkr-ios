@@ -1,25 +1,21 @@
 import Foundation
+import HealthKit
 
-struct Sneaker: Identifiable, Codable, Hashable {
+struct Sneaker: Identifiable, Hashable {
     var id = UUID()
     let company: String
     let model: String
-    let workouts: [String: RunningWorkout]?
+    let workouts: [String: HKWorkout]?
 }
 
-struct Container<T: Decodable
-                  & Encodable
-                  & Hashable>: Decodable,
-                               Encodable,
-                               Identifiable,
-                               Hashable {
+struct Container<T: Hashable>: Identifiable, Hashable {
     let id: String
     let data: T
 }
 
 /// Containers
 typealias SneakerContainer = Container<Sneaker>
-typealias RunningWorkoutContainer = Container<RunningWorkout>
+typealias RunningWorkoutContainer = Container<HKWorkout>
 
 /// Loadable States
 typealias SneakerState = LoadableState<[SneakerContainer]>

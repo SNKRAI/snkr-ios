@@ -13,7 +13,7 @@ final class HealthKitManager {
         self.firebaseManager = firebaseManager
     }
 
-    func getRunningWorkouts(completion: @escaping (Result<[Run], AppError>) -> Void) {
+    func getRunningWorkouts(completion: @escaping (Result<[HKWorkout], AppError>) -> Void) {
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .running)
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate])
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -29,8 +29,8 @@ final class HealthKitManager {
             }
 
             guard let workouts = workouts as? [HKWorkout], !workouts.isEmpty else { return }
-            let runs = workouts.compactMap { Run(workout: $0) }
-            completion(.success(runs))
+//            let runs = workouts.compactMap { Run(workout: $0) }
+            completion(.success(workouts))
         }
 
         healthStore.execute(query)
@@ -56,39 +56,18 @@ final class HealthKitManager {
                 completion(.success(.noNewWorkouts))
                 return
             }
-        
-            if let runs = self.runningWorkouts(from: workouts) {
-                self.firebaseManager.save(entry: .runs(runs)) { result in
-                    switch result {
-                    case .success:
-                        completion(.success(.saved))
-                    case .failure(let error):
-                        completion(.failure(.generic(error.localizedDescription)))
-                    }
+
+            self.firebaseManager.save(entry: .runs(workouts)) { result in
+                switch result {
+                case .success:
+                    completion(.success(.saved))
+                case .failure(let error):
+                    completion(.failure(.generic(error.localizedDescription)))
                 }
-            } else {
-                completion(.success(.noNewWorkouts))
             }
         }
 
         self.healthStore.execute(anchorQuery)
-    }
-
-    private func runningWorkouts(from workouts: [HKWorkout]) -> [RunningWorkout]? {
-        guard self.savedAnchor != nil else { return nil }
-        return workouts.compactMap {
-            self.run(from: $0)
-        }
-    }
-    
-    private func run(from workout: HKWorkout) -> RunningWorkout {
-        return RunningWorkout(
-            start: workout.startDate,
-            end: workout.endDate,
-            duration: workout.duration,
-            totalEnergyBurned: workout.totalEnergyBurned?.doubleValue(for: .kilocalorie()),
-            totalDistance: workout.totalDistance?.doubleValue(for: .mile()).inKm
-        )
     }
 }
 

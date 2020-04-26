@@ -16,6 +16,6 @@ struct SneakerCardRow: View {
     
     var totalDistance: Double? {
         guard let workouts = sneaker.workouts?.values else { return nil }
-        return workouts.compactMap { $0.totalDistance }.reduce(0, +)
+        return workouts.compactMap { $0.totalDistance?.doubleValue(for: .mile()) }.reduce(0, +)
     }
 }

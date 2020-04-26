@@ -1,9 +1,11 @@
 import UserNotifications
 import UIKit
+import HealthKit
+
 protocol NotificationManagerProtocol: class {
     func requestNotificationAuthorizationIfNeeded()
     func sendNotification(with title: String, body: String)
-    func sendNotification(for runs: [RunningWorkout])
+    func sendNotification(for runs: [HKWorkout])
 }
 
 final class NotificationManager {
@@ -52,10 +54,10 @@ extension NotificationManager: NotificationManagerProtocol {
         notificationCenter.add(request)
     }
     
-    func sendNotification(for runs: [RunningWorkout]) {
+    func sendNotification(for runs: [HKWorkout]) {
         var message: String
         if runs.count == 1 {
-            message = "Amazing \(runs.first?.distance?.distanceString ?? "") km run. In what sneakers did you make this workot?"
+            message = "Amazing \(runs.first?.totalDistance?.doubleValue(for: .mile())) km run. In what sneakers did you make this workot?"
         } else {
             message = "You are insane"
         }

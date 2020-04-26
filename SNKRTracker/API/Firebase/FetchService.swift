@@ -1,12 +1,12 @@
 import FirebaseAuth
 import FirebaseFirestore
-import CodableFirebase
+import HealthKit
 
 protocol FetchServiceProtocol {
     var runninWorkoutContainer: [RunningWorkoutContainer] { get set }
     var sneakerContainer: [SneakerContainer] { get set }
     func fetchAllDocuments(collection: Collection, completion: @escaping (MainState) -> Void)
-    func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
+    func fetch<T>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
     func delete(for keys: Keys, containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
 }
 
@@ -25,30 +25,31 @@ class FetchService {
         guard let documentType = Document(rawValue: document.documentID) else { return }
         switch documentType {
         case .sneakers:
-            if let decoded = decode(data: document.data(), into: [String: Sneaker].self) {
-                sneakerContainer.append(contentsOf: decoded)
-            } else {
-                errors.append(.decododingError)
+            for data in document.data() {
+                let values = data.value as? [String: Any]
+                if let company = values?["company"] as? String, let model = values?["model"] as? String {
+                    let container = SneakerContainer(id: data.key, data: Sneaker(company: company, model: model, workouts: nil))
+                    sneakerContainer.append(container)
+                } else {
+                    errors.append(.decododingError)
+                }
             }
-        
         case .pendingWorkouts:
-            if let decoded = decode(data: document.data(), into: [String: RunningWorkout].self) {
-                runninWorkoutContainer.append(contentsOf: decoded)
-            } else {
-                errors.append(.decododingError)
+            for data in document.data() {
+                guard let values = data.value as? [String: Any],
+                    let duration = values["duration"] as? TimeInterval,
+                    let startDate = values["startDate"] as? Timestamp,
+                    let endDate = values["endDate"] as? Timestamp else { continue }
+                
+                let totalDistance = HKQuantity(unit: .mile(), doubleValue: values["totalDistance"] as? Double ?? 0.0)
+                let totalEnergyBurned = HKQuantity(unit: .kilocalorie(), doubleValue: values["totalEnergyBurned"] as? Double ?? 0.0)
+                let metadata = values["metadata"] as? [String: Any]
+                let workout = HKWorkout(activityType: .running, start: startDate.dateValue(), end: endDate.dateValue(), duration: duration, totalEnergyBurned: totalEnergyBurned, totalDistance: totalDistance, device: nil, metadata: metadata)
+                runninWorkoutContainer.append(RunningWorkoutContainer(id: data.key, data: workout))
             }
         default:
             break
         }
-    }
-    
-    private func decode<T: Codable & Hashable>(data: [String: Any], into type: [String: T].Type) -> [Container<T>]? {
-        do {
-            return try FirebaseDecoder().decode(type, from: data).map { Container(id: $0.key, data: $0.value) }
-        } catch let error {
-            print("Decoding error: \(error.localizedDescription)")
-        }
-        return nil
     }
 }
 
@@ -80,7 +81,7 @@ extension FetchService: FetchServiceProtocol {
         }
     }
 
-    func fetch<T: Decodable>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void) {
+    func fetch<T>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void) {
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
 
@@ -90,17 +91,22 @@ extension FetchService: FetchServiceProtocol {
                 return
             }
             
+            
             if let document = document, let data = document.data(), document.exists {
-                do {
-                    let decoded = try FirebaseDecoder().decode([String: T].self, from: data).map { Container(id: $0.key, data: $0.value) }
-                    if decoded.isEmpty {
-                        completion(.empty)
-                    } else {
-                        completion(.fetched(decoded))
-                    }
-                 } catch let error {
-                    completion(.error(.decododingError))
-                 }
+                print("fewfwe")
+//                do {
+//                    let decoded = try FirebaseDecoder().decode([String: T].self, from: data).map { Container(id: $0.key, data: $0.value) }
+//                    if decoded.isEmpty {
+//                        completion(.empty)
+//                    } else {
+//                        completion(.fetched(decoded))
+//                    }
+//                 } catch let error {
+//                    completion(.error(.decododingError))
+//                 }
+                
+                
+                
             } else {
                 completion(.error(.firebaseError))
             }
