@@ -5,18 +5,16 @@ final class MyRunsViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<MyRunsViewModel, Never>()
     private let healthKitManager: HealthKitManagerProtocol
 
-    private let fetchService: FetchService
-
-    @Published var state: RunninWorkoutState = .loading {
+    private var fetchService: FetchServiceProtocol
+    
+    @Published var state: MainState = .loading {
         didSet {
             changeObserver.send(self)
         }
     }
 
     init(
-        fetchService: FetchService = FetchService(
-        keys: Keys(collection: .userId,
-                 document: .workouts)),
+        fetchService: FetchServiceProtocol = FetchService(),
         healthKitManager: HealthKitManagerProtocol = HealthKitManager()
     ) {
         self.fetchService = fetchService
@@ -25,11 +23,19 @@ final class MyRunsViewModel: ObservableObject {
         fetch()
     }
 
+    func append(sneaker: SneakerContainer) {
+        fetchService.sneakerContainer.append(sneaker)
+        self.state = .fetched(
+            fetchService.runninWorkoutContainer,
+            fetchService.sneakerContainer
+        )
+    }
+
     func fetch() {
         healthKitManager.observeAndSaveWorkouts { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
+            case .success(let result):
                 self.fetchRunningWorkouts()
             case .failure(let error):
                 if case .noHealthKitPermissions = error {
@@ -46,59 +52,11 @@ final class MyRunsViewModel: ObservableObject {
             }
         }
     }
-    
-    func sort(runs: [RunningWorkoutContainer]) -> (pending: [RunningWorkoutContainer], past: [SneakerWithWorkouts]) {
-        
-        var pending = [RunningWorkoutContainer]()
-        var locals = [LocalSneaker]()
-        
-        runs.forEach { run in
-            if let sneaker = run.data.sneaker {
-                let local = LocalSneaker(
-                    id: sneaker.id,
-                    company: sneaker.company,
-                    model: sneaker.model,
-                    workout: LocalWorkout(
-                        id: run.data.id,
-                        start: run.data.start,
-                        end: run.data.end,
-                        duration: run.data.duration,
-                        totalEnergyBurned: run.data.totalEnergyBurned,
-                        totalDistance: run.data.totalDistance
-                    )
-                )
-
-
-                locals.append(local)
-            } else {
-                pending.append(run)
-            }
-        }
-        
-        return (pending, sort(past: locals))
-    }
-    
-    private func sort(past: [LocalSneaker]) -> [SneakerWithWorkouts] {
-        var workoutSneakers = [SneakerWithWorkouts]()
-        
-        let duplicatedSneakers = Dictionary(grouping: past, by: { $0.id }).compactMap { $0.value }
-        duplicatedSneakers.forEach { sneakers in
-            guard let sneaker = sneakers.first else { return }
-            workoutSneakers.append(
-                SneakerWithWorkouts(id: sneaker.id,
-                               company: sneaker.company,
-                               model: sneaker.model,
-                               workouts: sneakers.compactMap { $0.workout } )
-            )
-        }
-                
-        return workoutSneakers
-    }
-    
 
     private func fetchRunningWorkouts() {
-        fetchService.fetch { [weak self] state in
-            self?.state = state
+        guard let collection = Collection(rawValue: "userId") else { return }
+        fetchService.fetchAllDocuments(collection: collection) { [weak self] fetchState in
+            self?.state = fetchState
         }
     }
 }

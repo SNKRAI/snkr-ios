@@ -1,12 +1,16 @@
 import SwiftUI
 
 enum Source {
-    case pendingWorkout(RunningWorkout), runsView
+    case pendingWorkout(RunningWorkoutContainer), runsView
 }
 
 struct MySneakersView: View {
     @EnvironmentObject var viewModel: MySneakersViewModel
+    @Environment(\.presentationMode) var presentation
+
     let source: Source
+    let completion: (() -> Void)
+    let sneakerCompletion: (SneakerContainer) -> Void
 
     var body: some View {
         NavigationView {
@@ -24,14 +28,18 @@ struct MySneakersView: View {
             return AnyView(Text("Loading"))
         case .empty:
             return AnyView(
-                PrimaryButton(
-                    text: "Add",
-                    destination: SneakerSearchView().environmentObject(SneakerSearchViewModel())
-                ).navigationBarItems(trailing: Text(""))
+                Buttons.sneakerSearchButton() { sneaker in
+                    self.sneakerCompletion(sneaker)
+                }.navigationBarItems(trailing: Text(""))
             )
         case .fetched(let container):
             return AnyView(
-                SneakerCardView(container: container, viewModel: viewModel, source: source)
+                SneakerCardView(container: container, viewModel: viewModel, source: source, completion: {
+                    self.presentation.wrappedValue.dismiss()
+                    self.completion()
+                }, sneakerCompletion: { sneaker in
+                    self.sneakerCompletion(sneaker)
+                })
             )
             
         case .error(let reason):

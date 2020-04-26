@@ -4,7 +4,7 @@ import Combine
 class SneakerSearchViewModel: ObservableObject {
     private let changeObserver = PassthroughSubject<SneakerSearchViewModel, Error>()
     
-    private let fetchService: FetchService
+    private let fetchService: FetchServiceProtocol
     private let saverService: FirebaseManager
 
     @Published var state: SneakerState = .loading {
@@ -14,27 +14,25 @@ class SneakerSearchViewModel: ObservableObject {
     }
     
     init(
-        fetchService: FetchService = FetchService(
-        keys: Keys(collection: .allSneakers,
-                   document: .models)),
-        
+        fetchService: FetchServiceProtocol = FetchService(),
         saverService: FirebaseManager = FirebaseManager()
     ) {
         self.fetchService = fetchService
         self.saverService = saverService
         fetchSneakers()
     }
-    
+
     func fetchSneakers() {
-        fetchService.fetch { [weak self] state in
+        let keys = Keys(collection: .allSneakers, document: .models)
+        fetchService.fetch(with: keys) { [weak self] state in
             self?.state = state
         }
     }
     
-    func add(_ sneaker: Sneaker) {
-        saverService.save(entry: .sneaker(sneaker)) { [weak self] result in
+    func add(_ sneaker: Sneaker, completion: @escaping () -> Void) {
+        saverService.save(entry: .sneaker(sneaker)) { result in
             if case .success = result {
-                print("success")
+                completion()
             }
         }
     }

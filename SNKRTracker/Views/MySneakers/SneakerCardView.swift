@@ -4,17 +4,22 @@ struct SneakerCardView: View {
     let container: [SneakerContainer]
     let viewModel: MySneakersViewModel
     let source: Source
-    
+    let completion: (() -> Void)
+    let sneakerCompletion: (SneakerContainer) -> Void
+
     var body: some View {
         List {
             ForEach(container, id: \.self) { model in
                 Button(action: {
                     switch self.source {
-                    case .pendingWorkout(var workout):
-                        workout.sneaker = model.data
-                        self.viewModel.rowSelected(with: workout)
-                    case .runsView:
-                        print("open details view may be?")
+                    case .pendingWorkout(let workout):
+                        self.viewModel.save(workout: workout, for: model) { result in
+                            if case .success = result {
+                                self.completion()
+                            }
+                        }
+                    default:
+                        break
                     }
                 }) {
                     SneakerCardRow(sneaker: model.data)
@@ -24,18 +29,13 @@ struct SneakerCardView: View {
             }
         }.navigationBarItems(trailing:
              NavigationLink(destination:
-                SneakerSearchView().environmentObject(SneakerSearchViewModel())
+                SneakerSearchView() { sneaker in
+                    self.sneakerCompletion(sneaker)
+                    
+                }.environmentObject(SneakerSearchViewModel())
              ) {
                  Text("Add more")
              }
          )
     }
 }
-
-struct SneakerCardRow: View {
-    var sneaker: Sneaker
-    var body: some View {
-        Text(sneaker.model)
-    }
-}
-

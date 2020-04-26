@@ -2,8 +2,9 @@ import SwiftUI
 
 struct SneakerSearchView: View {
     @EnvironmentObject var viewModel: SneakerSearchViewModel
-
+    @Environment(\.presentationMode) var presentation
     @State private var searchText = ""
+    var completion: ((SneakerContainer) -> Void)
 
     var body: some View {
         VStack {
@@ -18,20 +19,23 @@ struct SneakerSearchView: View {
         case .loading:
                 return AnyView(Text("Loading"))
             case .fetched(let sneakers):
-                var filtered: [Sneaker]
+                var filtered: [SneakerContainer]
                 if searchText.isEmpty {
-                    filtered = sneakers.compactMap { $0.data }
+                    filtered = sneakers.compactMap { $0 }
                 } else {
-                    filtered = sneakers.compactMap { $0.data }.filter { $0.model.localizedStandardContains(searchText) || $0.company.localizedStandardContains(searchText)
+                    filtered = sneakers.compactMap { $0 }.filter { $0.data.model.localizedStandardContains(searchText) || $0.data.company.localizedStandardContains(searchText)
                     }
                 }
                 return AnyView(
                     List {
-                        ForEach(filtered, id: \.self) { sneaker in
+                        ForEach(filtered) { sneaker in
                             Button(action: {
-                                self.viewModel.add(sneaker)
+                                self.viewModel.add(sneaker.data) {
+                                    self.presentation.wrappedValue.dismiss()
+                                    self.completion(sneaker)
+                                }
                             }) {
-                                Text(sneaker.model)
+                                Text(sneaker.data.model)
                             }
                         }
                     }

@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct PrimaryButton<V: View>: View {
+struct PrimaryButton<T: View>: View {
     let text: String
-    let destination: V
+    let destination: T
     
     var body: some View {
         NavigationLink(text, destination: destination)
@@ -12,5 +12,15 @@ struct PrimaryButton<V: View>: View {
             .padding()
             .background(Color.green)
             .cornerRadius(5)
+    }
+}
+
+struct Buttons {
+    static func sneakerSearchButton(completion: @escaping (SneakerContainer) -> Void) -> AnyView {
+        return AnyView(
+            PrimaryButton(text: "Add", destination: SneakerSearchView() { sneaker in
+                completion(sneaker)
+            }.environmentObject(SneakerSearchViewModel()))
+        )
     }
 }

@@ -7,7 +7,7 @@ import Combine
 enum Entry {
     case runs([RunningWorkout])
     case sneaker(Sneaker)
-    case workout(RunningWorkout)
+    case workout(RunningWorkoutContainer, SneakerContainer)
 }
 
 protocol FirebaseSaverProtocol {
@@ -43,14 +43,29 @@ extension FirebaseManager: FirebaseSaverProtocol {
         switch entry {
         case .runs(let runs):
             for run in runs {
-                saveToFirestore(model: run, keys: Keys(collection: .userId,
-                document: .workouts), completion: completion)
+                saveToFirestore(model: run, keys: Keys(collection: .userId, document: .pendingWorkouts), completion: completion)
             }
         case .sneaker(let sneaker):
             saveToFirestore(model: sneaker, keys: Keys(collection: .userId, document: .sneakers), completion: completion)
             
-        case .workout(let run):
-            print("fef")
+        case .workout(let run, let sneaker):
+            let saveKeys = Keys(collection: .userId, document: .sneakers)
+
+            let collectionId = Helper.path(for: saveKeys.collection)
+            do {
+                guard let encoded = try FirebaseEncoder().encode(run.data) as? [String: Any] else { return }
+                firestore.collection(collectionId).document(saveKeys.document.rawValue).updateData([
+                    "\(sneaker.id).workouts.\(run.id)": encoded
+                ]) { error in
+                    guard error == nil else {
+                        completion(.failure(.generic(error?.localizedDescription ?? "")))
+                        return
+                    }
+                    completion(.success(()))
+                }
+            } catch let error {
+                completion(.failure(.generic(error.localizedDescription)))
+            }
         }
     }
 }
