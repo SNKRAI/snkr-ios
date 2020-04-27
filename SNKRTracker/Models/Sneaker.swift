@@ -5,7 +5,17 @@ struct Sneaker: Identifiable, Hashable {
     var id = UUID()
     let company: String
     let model: String
-    let workouts: [String: HKWorkout]?
+    let workouts: [RunningWorkoutContainer]?
+}
+
+extension Sneaker {
+    func toJson() -> [String: Any] {
+        return [
+            "id": id.uuidString,
+            "company": company,
+            "model": model
+        ]
+    }
 }
 
 struct Container<T: Hashable>: Identifiable, Hashable {

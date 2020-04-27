@@ -30,16 +30,7 @@ extension FirebaseManager: FirebaseSaverProtocol {
             let keys = Keys(collection: .userId, document: .pendingWorkouts)
             for run in runs {
                 let collectionId = Helper.path(for: keys.collection)
-                let json: [String: Any] = [
-                    "duration": run.duration,
-                    "startDate": run.startDate,
-                    "endDate": run.endDate,
-                    "totalDistance": run.totalDistance?.doubleValue(for: .mile()),
-                    "totalEnergyBurned": run.totalEnergyBurned?.doubleValue(for: .kilocalorie()),
-                    "metadata": run.metadata
-                ]
-                
-                firestore.collection(collectionId).document(keys.document.rawValue).setData([UUID().uuidString: json], merge: true) { err in
+                firestore.collection(collectionId).document(keys.document.rawValue).setData([UUID().uuidString: run.toJson()], merge: true) { err in
                     if let err = err {
                         completion(.failure(.generic(err.localizedDescription)))
                     } else {
@@ -48,15 +39,22 @@ extension FirebaseManager: FirebaseSaverProtocol {
                 }
             }
         case .sneaker(let sneaker):
-            print("SAVE")
-//            saveToFirestore(model: sneaker, keys: Keys(collection: .userId, document: .sneakers), completion: completion)
+            let keys = Keys(collection: .userId, document: .sneakers)
+            let collectionId = Helper.path(for: keys.collection)
+            firestore.collection(collectionId).document(keys.document.rawValue).setData([UUID().uuidString: sneaker.toJson()], merge: true) { err in
+                if let err = err {
+                    completion(.failure(.generic(err.localizedDescription)))
+                } else {
+                    completion(.success(()))
+                }
+            }
             
         case .workout(let run, let sneaker):
             let saveKeys = Keys(collection: .userId, document: .sneakers)
             let collectionId = Helper.path(for: saveKeys.collection)
             
             firestore.collection(collectionId).document(saveKeys.document.rawValue).updateData([
-                "\(sneaker.id).workouts.\(run.id)": run
+                "\(sneaker.id).workouts.\(run.id)": run.data.toJson()
             ]) { error in
                 guard error == nil else {
                     completion(.failure(.generic(error?.localizedDescription ?? "")))

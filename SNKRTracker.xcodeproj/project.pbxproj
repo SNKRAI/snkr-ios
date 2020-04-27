@@ -29,6 +29,7 @@
 		2F5208A424518B860078DE5E /* SneakerCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A324518B860078DE5E /* SneakerCardRow.swift */; };
 		2F5208A82451B8A10078DE5E /* SneakersWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5208A72451B8A10078DE5E /* SneakersWorkoutsView.swift */; };
 		2F6B606024546D2C003CC4AD /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6B605F24546D2C003CC4AD /* Double+Extension.swift */; };
+		2F6B606C24561D94003CC4AD /* HKWorkout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6B606B24561D94003CC4AD /* HKWorkout+Extension.swift */; };
 		2F6F674624445CE600EEAFFB /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674524445CE600EEAFFB /* FirebaseManager.swift */; };
 		2F6F674924445D3C00EEAFFB /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */; };
 		2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F674B2444623A00EEAFFB /* OnboardingView.swift */; };
@@ -89,6 +90,7 @@
 		2F5208A324518B860078DE5E /* SneakerCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerCardRow.swift; sourceTree = "<group>"; };
 		2F5208A72451B8A10078DE5E /* SneakersWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersWorkoutsView.swift; sourceTree = "<group>"; };
 		2F6B605F24546D2C003CC4AD /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		2F6B606B24561D94003CC4AD /* HKWorkout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkout+Extension.swift"; sourceTree = "<group>"; };
 		2F6F674524445CE600EEAFFB /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2F6F674824445D3C00EEAFFB /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		2F6F674B2444623A00EEAFFB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				2F009EB42449AA51006076AB /* RunningWorkout.swift */,
 				2FDAF244244D7A8B00BD3BE0 /* LodableState.swift */,
 				2FDAF246244D830000BD3BE0 /* Sneaker.swift */,
+				2F6B606B24561D94003CC4AD /* HKWorkout+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				2F2230AA242D110600942066 /* HealthConfiguration.swift in Sources */,
 				2F52089E24504E2F0078DE5E /* HeaderView.swift in Sources */,
 				2FDAF250244D860B00BD3BE0 /* SneakerSearchView.swift in Sources */,
+				2F6B606C24561D94003CC4AD /* HKWorkout+Extension.swift in Sources */,
 				2F6F674E2444626800EEAFFB /* PageView.swift in Sources */,
 				2F5208A0245062700078DE5E /* SneakersView.swift in Sources */,
 				2F2230A6242D004900942066 /* AppError.swift in Sources */,

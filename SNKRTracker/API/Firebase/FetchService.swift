@@ -6,7 +6,7 @@ protocol FetchServiceProtocol {
     var runninWorkoutContainer: [RunningWorkoutContainer] { get set }
     var sneakerContainer: [SneakerContainer] { get set }
     func fetchAllDocuments(collection: Collection, completion: @escaping (MainState) -> Void)
-    func fetch<T>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void)
+    func fetch(with keys: Keys, completion: @escaping (SneakerState) -> Void)
     func delete(for keys: Keys, containerId: String, completion: @escaping (Swift.Result<Void, FetchError>) -> Void)
 }
 
@@ -26,12 +26,9 @@ class FetchService {
         switch documentType {
         case .sneakers:
             for data in document.data() {
-                let values = data.value as? [String: Any]
-                if let company = values?["company"] as? String, let model = values?["model"] as? String {
-                    let container = SneakerContainer(id: data.key, data: Sneaker(company: company, model: model, workouts: nil))
-                    sneakerContainer.append(container)
-                } else {
-                    errors.append(.decododingError)
+                parseSneaker(key: data.key, values: data.value) { [weak self] sneaker in
+                    guard let self = self else { return }
+                    self.sneakerContainer.append(sneaker)
                 }
             }
         case .pendingWorkouts:
@@ -50,6 +47,42 @@ class FetchService {
         default:
             break
         }
+    }
+    
+    private func parseSneaker(key: String, values: Any, completion: @escaping (SneakerContainer) -> Void) {
+        var localContainer = [RunningWorkoutContainer]()
+
+        guard let values = values as? [String: Any] else { return }
+        if let company = values["company"] as? String,
+            let model = values["model"] as? String {
+        
+            if let workouts = values["workouts"] as? [String: Any] {
+                for workout in workouts {
+                    self.parseWorkout(key: workout.key, values: workout.value) { container in
+                        localContainer.append(container)
+                    }
+                }
+                
+                completion(SneakerContainer(id: key, data: Sneaker(company: company, model: model, workouts: localContainer)))
+            } else {
+                completion(SneakerContainer(id: key, data: Sneaker(company: company, model: model, workouts: [])))
+            }
+        } else {
+            print("error")
+        }
+    }
+    
+    private func parseWorkout(key: String, values: Any, completion: @escaping (RunningWorkoutContainer) -> Void) {
+        guard let values = values as? [String: Any],
+            let duration = values["duration"] as? TimeInterval,
+            let startDate = values["startDate"] as? Timestamp,
+            let endDate = values["endDate"] as? Timestamp else { return }
+
+        let totalDistance = HKQuantity(unit: .mile(), doubleValue: values["totalDistance"] as? Double ?? 0.0)
+        let totalEnergyBurned = HKQuantity(unit: .kilocalorie(), doubleValue: values["totalEnergyBurned"] as? Double ?? 0.0)
+        let metadata = values["metadata"] as? [String: Any]
+        let workout = HKWorkout(activityType: .running, start: startDate.dateValue(), end: endDate.dateValue(), duration: duration, totalEnergyBurned: totalEnergyBurned, totalDistance: totalDistance, device: nil, metadata: metadata)
+        completion(RunningWorkoutContainer(id: key, data: workout))
     }
 }
 
@@ -81,34 +114,30 @@ extension FetchService: FetchServiceProtocol {
         }
     }
 
-    func fetch<T>(with keys: Keys, completion: @escaping (LoadableState<[Container<T>]>) -> Void) {
+    func fetch(with keys: Keys, completion: @escaping (SneakerState) -> Void) {
+        let group = DispatchGroup()
         let collectionId = Helper.path(for: keys.collection)
         let ref = firestore.collection(collectionId).document(keys.document.rawValue)
+        var localContainer = [SneakerContainer]()
 
-        ref.getDocument { document, error in
-            guard error == nil else {
+        ref.getDocument { [weak self] document, error in
+            guard let self = self, error == nil else {
                 completion(.error(.firebaseError))
                 return
             }
             
-            
             if let document = document, let data = document.data(), document.exists {
-                print("fewfwe")
-//                do {
-//                    let decoded = try FirebaseDecoder().decode([String: T].self, from: data).map { Container(id: $0.key, data: $0.value) }
-//                    if decoded.isEmpty {
-//                        completion(.empty)
-//                    } else {
-//                        completion(.fetched(decoded))
-//                    }
-//                 } catch let error {
-//                    completion(.error(.decododingError))
-//                 }
-                
-                
-                
-            } else {
-                completion(.error(.firebaseError))
+                for i in data {
+                    group.enter()
+                    self.parseSneaker(key: i.key, values: i.value) { sneaker in
+                        localContainer.append(sneaker)
+                        group.leave()
+                    }
+                }
+            }
+
+            group.notify(queue: .main) {
+                completion(.fetched(localContainer))
             }
         }
     }

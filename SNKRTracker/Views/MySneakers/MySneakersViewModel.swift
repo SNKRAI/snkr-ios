@@ -18,6 +18,8 @@ class MySneakersViewModel: ObservableObject {
     ) {
         self.fetchService = fetchService
         self.saveService = saveService
+        
+        fetchMySneakers()
     }
 
     func fetchMySneakers() {

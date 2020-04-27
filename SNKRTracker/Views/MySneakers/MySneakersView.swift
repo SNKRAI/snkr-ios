@@ -16,8 +16,6 @@ struct MySneakersView: View {
         NavigationView {
             VStack {
                 stateView
-            }.onAppear {
-                self.viewModel.fetchMySneakers()
             }
         }
     }
