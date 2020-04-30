@@ -9,7 +9,7 @@ struct SneakersWorkoutsView: View {
     }
     
     private var stateView: AnyView {
-        let runs = sneaker.data.workouts?.values.compactMap { RunningWorkout(id: $0.id, start: $0.start, end: $0.end, duration: $0.duration, totalEnergyBurned: $0.totalEnergyBurned, totalDistance: $0.totalDistance) }
+        let runs = sneaker.data.workouts?.compactMap { $0.value }
         guard let workouts = runs else {
             return AnyView(Text("No workouts for \(sneaker.data.model)"))
         }
@@ -17,7 +17,9 @@ struct SneakersWorkoutsView: View {
         return AnyView(
             List {
                 ForEach(workouts, id: \.self) { workout in
-                    Text(workout.distance?.distanceString ?? "")
+                    NavigationLink(destination: WorkoutDetailView(workoutId: workout.id)) {
+                        Text(workout.distance?.distanceString ?? "")
+                    }
                 }
             }
         )

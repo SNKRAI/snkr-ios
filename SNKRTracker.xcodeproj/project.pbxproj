@@ -47,8 +47,8 @@
 		2F8031B62433353800EAF82B /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8031B52433353800EAF82B /* Env.swift */; };
 		2F8459CD242D4ACB00B884C1 /* MyRunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459CC242D4ACB00B884C1 /* MyRunsView.swift */; };
 		2F8459D2242D4B1600B884C1 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459D1242D4B1600B884C1 /* AppDefaults.swift */; };
-		2F8459D9242E385400B884C1 /* MyRunsDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459D8242E385400B884C1 /* MyRunsDetailViewModel.swift */; };
-		2F8459DB242E387900B884C1 /* MyRunsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DA242E387900B884C1 /* MyRunsDetailView.swift */; };
+		2F8459D9242E385400B884C1 /* WorkoutDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459D8242E385400B884C1 /* WorkoutDetailViewModel.swift */; };
+		2F8459DB242E387900B884C1 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DA242E387900B884C1 /* WorkoutDetailView.swift */; };
 		2F8459DD242E38A600B884C1 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DC242E38A600B884C1 /* MapView.swift */; };
 		2F8459DF242E5A5600B884C1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8459DE242E5A5600B884C1 /* NotificationManager.swift */; };
 		2FDAF243244D76C600BD3BE0 /* MySneakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */; };
@@ -111,8 +111,8 @@
 		2F8031D32433552500EAF82B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F8459CC242D4ACB00B884C1 /* MyRunsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsView.swift; sourceTree = "<group>"; };
 		2F8459D1242D4B1600B884C1 /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
-		2F8459D8242E385400B884C1 /* MyRunsDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsDetailViewModel.swift; sourceTree = "<group>"; };
-		2F8459DA242E387900B884C1 /* MyRunsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsDetailView.swift; sourceTree = "<group>"; };
+		2F8459D8242E385400B884C1 /* WorkoutDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewModel.swift; sourceTree = "<group>"; };
+		2F8459DA242E387900B884C1 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		2F8459DC242E38A600B884C1 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		2F8459DE242E5A5600B884C1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		2FDAF242244D76C600BD3BE0 /* MySneakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySneakersView.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				2FDAF241244D76B200BD3BE0 /* MySneakers */,
 				2F6F675A244475C500EEAFFB /* Login */,
 				2F6F674A2444622600EEAFFB /* Onboarding */,
-				2F8459D7242E384200B884C1 /* MyRunsDetail */,
+				2F8459D7242E384200B884C1 /* MapView */,
 				2F8459CE242D4ACE00B884C1 /* MyRuns */,
 				2F223089242CE42200942066 /* MainView.swift */,
 			);
@@ -369,14 +369,14 @@
 			path = MyRuns;
 			sourceTree = "<group>";
 		};
-		2F8459D7242E384200B884C1 /* MyRunsDetail */ = {
+		2F8459D7242E384200B884C1 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				2F8459D8242E385400B884C1 /* MyRunsDetailViewModel.swift */,
-				2F8459DA242E387900B884C1 /* MyRunsDetailView.swift */,
+				2F8459D8242E385400B884C1 /* WorkoutDetailViewModel.swift */,
+				2F8459DA242E387900B884C1 /* WorkoutDetailView.swift */,
 				2F8459DC242E38A600B884C1 /* MapView.swift */,
 			);
-			path = MyRunsDetail;
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		2FDAF241244D76B200BD3BE0 /* MySneakers */ = {
@@ -582,7 +582,7 @@
 				2F47191B244898E5008E9399 /* Analytics.swift in Sources */,
 				2F223088242CE42200942066 /* SceneDelegate.swift in Sources */,
 				2F8459DD242E38A600B884C1 /* MapView.swift in Sources */,
-				2F8459DB242E387900B884C1 /* MyRunsDetailView.swift in Sources */,
+				2F8459DB242E387900B884C1 /* WorkoutDetailView.swift in Sources */,
 				2FDAF243244D76C600BD3BE0 /* MySneakersView.swift in Sources */,
 				2F6F67682447416B00EEAFFB /* Constants.swift in Sources */,
 				2F8459D2242D4B1600B884C1 /* AppDefaults.swift in Sources */,
@@ -595,7 +595,7 @@
 				2F520895244DBCA80078DE5E /* FetchService.swift in Sources */,
 				2F6F676024471DBE00EEAFFB /* LoginViewController.swift in Sources */,
 				2F6F674C2444623A00EEAFFB /* OnboardingView.swift in Sources */,
-				2F8459D9242E385400B884C1 /* MyRunsDetailViewModel.swift in Sources */,
+				2F8459D9242E385400B884C1 /* WorkoutDetailViewModel.swift in Sources */,
 				2F52089A245037460078DE5E /* PendingWorkouts.swift in Sources */,
 				2F6F6759244464BF00EEAFFB /* PageViewController.swift in Sources */,
 				2F5208A424518B860078DE5E /* SneakerCardRow.swift in Sources */,

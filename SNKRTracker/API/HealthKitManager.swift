@@ -13,7 +13,7 @@ final class HealthKitManager {
         self.firebaseManager = firebaseManager
     }
 
-    func getRunningWorkouts(completion: @escaping (Result<[Run], AppError>) -> Void) {
+    func getRunningWorkouts(completion: @escaping (Result<[HKWorkout], AppError>) -> Void) {
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .running)
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate])
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -29,8 +29,7 @@ final class HealthKitManager {
             }
 
             guard let workouts = workouts as? [HKWorkout], !workouts.isEmpty else { return }
-            let runs = workouts.compactMap { Run(workout: $0) }
-            completion(.success(runs))
+            completion(.success(workouts))
         }
 
         healthStore.execute(query)
@@ -83,6 +82,7 @@ final class HealthKitManager {
     
     private func run(from workout: HKWorkout) -> RunningWorkout {
         return RunningWorkout(
+            id: workout.uuid,
             start: workout.startDate,
             end: workout.endDate,
             duration: workout.duration,
@@ -120,29 +120,59 @@ extension HealthKitManager: HealthKitManagerProtocol {
             completion(result)
         }
     }
+
+    func getWorkout(for id: UUID, completion: @escaping (HKWorkout) -> Void) {
+        let workoutPredicate = HKQuery.predicateForObject(with: id)
+
+        let workoutQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: 1, sortDescriptors: nil) { query, data, error in
+            guard let workout = data?.first as? HKWorkout else {
+                print("Workout not found")
+                return
+            }
+            completion(workout)
+        }
+
+        self.healthStore.execute(workoutQuery)
+    }
+    
+    func getRoutesRawData(for workout: HKWorkout, completion: @escaping ([HKWorkoutRoute]) -> Void) {
+        let routePredicate = HKQuery.predicateForObjects(from: workout)
+        let routeQuery = HKSampleQuery(sampleType: HKSeriesType.workoutRoute(), predicate: routePredicate, limit: 0, sortDescriptors: nil) { query, data, error in
+            guard let routes = data as? [HKWorkoutRoute] else {
+                print("Route for workout not found - might be in Healthkit from Nike running that doesn't share locations")
+                return
+            }
+            completion(routes)
+        }
+        
+        self.healthStore.execute(routeQuery)
+    }
+
+    func getWorkoutRoutes(for routes: [HKWorkoutRoute], completion: @escaping ([CLLocation]) -> Void) {
+        var locations = [CLLocation]()
+
+        routes.forEach { route in
+            let locationQuery = HKWorkoutRouteQuery(route: route) { routeQuery, data, done, error in
+                guard let data = data else { return }
+                locations.append(contentsOf: data)
+                if done {
+                    completion(locations)
+                }
+            }
+
+            self.healthStore.execute(locationQuery)
+        }
+    }
 }
 
 extension HealthKitManager: HealthKitManagerExtendedProtocol {
-    func getWorkoutRoute(for workout: HKWorkout, completion: @escaping (Result<[CLLocation], AppError>) -> Void) {
-        let type = HKSeriesType.workoutRoute()
-        let workoutPredicate = HKQuery.predicateForObjects(from: workout)
-
-        let workoutQuery = HKSampleQuery(sampleType: type, predicate: workoutPredicate, limit: 0, sortDescriptors: nil) { [weak self] query, data, error  in
-            guard let self = self, let routes = data as? [HKWorkoutRoute] else { return }
-                        
-            routes.forEach { route in
-                let locationQuery = HKWorkoutRouteQuery(route: route) { [weak self] routeQuery, data, done, error in
-                    guard let self = self, let data = data else { return }
-                    self.locations.append(contentsOf: data)
-                    if done {
-                        completion(.success(self.locations))
-                    }
+    func getWorkoutRoute(for workoutId: UUID, completion: @escaping (Result<[CLLocation], AppError>) -> Void) {
+        getWorkout(for: workoutId) { [weak self] workout in
+            self?.getRoutesRawData(for: workout) { [weak self] rawData in
+                self?.getWorkoutRoutes(for: rawData) { locations in
+                    completion(.success(locations))
                 }
-                
-                self.healthStore.execute(locationQuery)
             }
         }
-        
-        self.healthStore.execute(workoutQuery)
     }
 }

@@ -1,11 +1,11 @@
 import MapKit
 import HealthKit
 
-protocol MyRunsDetailViewModelProtocol: class {
-    func getWorkoutRoute(for workout: HKWorkout)
+protocol WorkoutDetailViewModelProtocol: class {
+    func getWorkoutRoute(for uuid: UUID)
 }
 
-final class MyRunsDetailViewModel: ObservableObject {
+final class WorkoutDetailViewModel: ObservableObject {
     var healthKitManager: HealthKitManagerExtendedProtocol
     @Published var locations = [CLLocation]()
 
@@ -14,9 +14,9 @@ final class MyRunsDetailViewModel: ObservableObject {
     }
 }
 
-extension MyRunsDetailViewModel: MyRunsDetailViewModelProtocol {
-    func getWorkoutRoute(for workout: HKWorkout) {
-        healthKitManager.getWorkoutRoute(for: workout) { [weak self] result in
+extension WorkoutDetailViewModel: WorkoutDetailViewModelProtocol {
+    func getWorkoutRoute(for uuid: UUID) {
+        healthKitManager.getWorkoutRoute(for: uuid) { [weak self] result in
             switch result {
             case .success(let locations):
                 DispatchQueue.main.async {
