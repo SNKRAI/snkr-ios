@@ -13,28 +13,6 @@ final class HealthKitManager {
         self.firebaseManager = firebaseManager
     }
 
-    func getRunningWorkouts(completion: @escaping (Result<[HKWorkout], AppError>) -> Void) {
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .running)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [workoutPredicate])
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        
-        let query = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: predicate,
-            limit: 0, sortDescriptors: [sortDescriptor]
-        ) { query, workouts, error in
-            guard error == nil else {
-                completion(.failure(.generic("Could not fetch runs")))
-                return
-            }
-
-            guard let workouts = workouts as? [HKWorkout], !workouts.isEmpty else { return }
-            completion(.success(workouts))
-        }
-
-        healthStore.execute(query)
-    }
-    
     // TODO: handle deprecated warnings
     private func saveRuns(completion: @escaping (Result<RunningCompletion, AppError>) -> Void) {
         if let anchorData = UserDefaults.standard.object(forKey: "anchor") as? Data {
@@ -90,6 +68,49 @@ final class HealthKitManager {
             totalDistance: workout.totalDistance?.doubleValue(for: .mile()).inKm
         )
     }
+    
+    private func getWorkout(for id: UUID, completion: @escaping (HKWorkout) -> Void) {
+        let workoutPredicate = HKQuery.predicateForObject(with: id)
+
+        let workoutQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: 1, sortDescriptors: nil) { query, data, error in
+            guard let workout = data?.first as? HKWorkout else {
+                print("Workout not found")
+                return
+            }
+            completion(workout)
+        }
+
+        self.healthStore.execute(workoutQuery)
+    }
+    
+    private func getRoutesRawData(for workout: HKWorkout, completion: @escaping ([HKWorkoutRoute]) -> Void) {
+        let routePredicate = HKQuery.predicateForObjects(from: workout)
+        let routeQuery = HKSampleQuery(sampleType: HKSeriesType.workoutRoute(), predicate: routePredicate, limit: 0, sortDescriptors: nil) { query, data, error in
+            guard let routes = data as? [HKWorkoutRoute] else {
+                print("Route for workout not found - might be in Healthkit from Nike running that doesn't share locations")
+                return
+            }
+            completion(routes)
+        }
+        
+        self.healthStore.execute(routeQuery)
+    }
+
+    private func getWorkoutRoutes(for routes: [HKWorkoutRoute], completion: @escaping ([CLLocation]) -> Void) {
+        var locations = [CLLocation]()
+
+        routes.forEach { route in
+            let locationQuery = HKWorkoutRouteQuery(route: route) { routeQuery, data, done, error in
+                guard let data = data else { return }
+                locations.append(contentsOf: data)
+                if done {
+                    completion(locations)
+                }
+            }
+
+            self.healthStore.execute(locationQuery)
+        }
+    }
 }
 
 extension HealthKitManager: HealthKitManagerProtocol {
@@ -118,49 +139,6 @@ extension HealthKitManager: HealthKitManagerProtocol {
 
         saveRuns { result in
             completion(result)
-        }
-    }
-
-    func getWorkout(for id: UUID, completion: @escaping (HKWorkout) -> Void) {
-        let workoutPredicate = HKQuery.predicateForObject(with: id)
-
-        let workoutQuery = HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: 1, sortDescriptors: nil) { query, data, error in
-            guard let workout = data?.first as? HKWorkout else {
-                print("Workout not found")
-                return
-            }
-            completion(workout)
-        }
-
-        self.healthStore.execute(workoutQuery)
-    }
-    
-    func getRoutesRawData(for workout: HKWorkout, completion: @escaping ([HKWorkoutRoute]) -> Void) {
-        let routePredicate = HKQuery.predicateForObjects(from: workout)
-        let routeQuery = HKSampleQuery(sampleType: HKSeriesType.workoutRoute(), predicate: routePredicate, limit: 0, sortDescriptors: nil) { query, data, error in
-            guard let routes = data as? [HKWorkoutRoute] else {
-                print("Route for workout not found - might be in Healthkit from Nike running that doesn't share locations")
-                return
-            }
-            completion(routes)
-        }
-        
-        self.healthStore.execute(routeQuery)
-    }
-
-    func getWorkoutRoutes(for routes: [HKWorkoutRoute], completion: @escaping ([CLLocation]) -> Void) {
-        var locations = [CLLocation]()
-
-        routes.forEach { route in
-            let locationQuery = HKWorkoutRouteQuery(route: route) { routeQuery, data, done, error in
-                guard let data = data else { return }
-                locations.append(contentsOf: data)
-                if done {
-                    completion(locations)
-                }
-            }
-
-            self.healthStore.execute(locationQuery)
         }
     }
 }
