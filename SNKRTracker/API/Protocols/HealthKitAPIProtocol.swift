@@ -3,7 +3,7 @@ import HealthKit
 import MapKit
 
 protocol HealthKitManagerExtendedProtocol: class {
-    func getWorkoutRoute(for workout: HKWorkout, completion: @escaping (Result<[CLLocation], AppError>) -> Void)
+    func getWorkoutRoute(for workoutId: UUID, completion: @escaping (Result<[CLLocation], AppError>) -> Void)
 }
 
 protocol HealthKitManagerProtocol: class {
